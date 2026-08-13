@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eng. Mohamed Salah - Physics Platform</title>
+    <title>Eng. Mohamed Salah - Elite Physics Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,7 +13,7 @@
             font-family: 'Cairo', sans-serif;
         }
         body {
-            background: #020617;
+            background: #090204;
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* خلفية فيزيائية حية بقوانين الكهربية والحديثة الضخمة والملونة */
+        /* خلفية جرافيكية فيزيائية ضخمة بألوان متعددة (أحمر، أزرق، أصفر) */
         .physics-background-vivid {
             position: absolute;
             top: 0;
@@ -33,75 +33,137 @@
             overflow: hidden;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.2;
+            opacity: 0.3;
         }
         .vivid-formula {
             position: absolute;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            opacity: 0.15;
-            animation: movePhysicsVivid 28s infinite linear;
+            opacity: 0.22;
+            animation: movePhysicsVivid 22s infinite linear;
         }
         @keyframes movePhysicsVivid {
-            0% { transform: translateY(110vh) translateX(-20px); }
-            100% { transform: translateY(-150px) translateX(60px); }
+            0% { transform: translateY(110vh) translateX(-40px) rotate(0deg); }
+            100% { transform: translateY(-180px) translateX(90px) rotate(360deg); }
         }
 
-        /* حاوية المنصة الكبرى الفخمة (الجرافيك الأعلى) */
+        /* عناصر جرافيك معبرة عن النجاح والكهرباء والفيزياء عالية المستوى */
+        .graphic-badge-success {
+            position: absolute;
+            font-size: 24px;
+            font-weight: 900;
+            padding: 10px 20px;
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
+            border-radius: 50px;
+            color: #ffc107;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+            z-index: 1;
+            animation: floatBadge 4s infinite alternate ease-in-out;
+        }
+        @keyframes floatBadge {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+
+        .physics-icon-graphic {
+            position: absolute;
+            font-size: 55px;
+            opacity: 0.15;
+            z-index: 0;
+            animation: pulseGlow 3.5s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.12; }
+            100% { transform: scale(1.2); opacity: 0.28; }
+        }
+
+        /* حاوية المنصة الكبرى (بتصميم مكثف ومتطور يأخذ حقه كاملاً في الجرافيك) */
         .platform-super-card {
             position: relative;
             z-index: 10;
-            background: rgba(10, 17, 32, 0.95);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 3px solid rgba(56, 189, 248, 0.5);
-            border-radius: 40px;
-            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(14, 165, 233, 0.3);
+            background: linear-gradient(145deg, rgba(18, 5, 10, 0.95), rgba(5, 12, 25, 0.95));
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 3px solid rgba(255, 0, 85, 0.5);
+            border-radius: 50px;
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.98), 0 0 70px rgba(255, 0, 85, 0.25), 0 0 40px rgba(0, 102, 255, 0.25);
             width: 100%;
-            max-width: 600px;
-            padding: 50px 40px;
+            max-width: 680px;
+            padding: 50px 45px;
             text-align: center;
             margin: 30px;
         }
 
-        /* صورة المستر الكبيرة الاحترافية */
+        /* مساحة عرض صورة المدرس الكبرى والواضحة جداً بجودة عالية */
         .teacher-box-large {
             width: 100%;
-            max-height: 250px;
-            border-radius: 25px;
+            height: 350px;
+            border-radius: 35px;
             overflow: hidden;
-            border: 4px solid #0ea5e9;
-            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.6);
+            border: 4px solid #ff0055;
+            box-shadow: 0 20px 50px rgba(255, 0, 85, 0.5);
             margin-bottom: 25px;
-            background: #000;
+            background: #020617;
+            position: relative;
         }
         .teacher-box-large img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
             display: block;
         }
 
-        /* الاسم واللقب بالإنجليزية */
+        /* العنوان بتدرجات ألوان نيون مذهلة (أحمر، أزرق، أصفر) */
         .eng-title-large {
             font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 900;
-            background: linear-gradient(135deg, #38bdf8, #818cf8, #38bdf8);
+            background: linear-gradient(135deg, #ff0055, #ffc107, #00d2ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
         }
         .platform-desc {
-            font-size: 15px;
-            color: #94a3b8;
+            font-size: 16px;
+            color: #e2e8f0;
             margin-bottom: 35px;
-            font-weight: 600;
-            line-height: 1.6;
+            font-weight: 700;
+            line-height: 1.7;
         }
 
-        /* حقول التسجيل الاحترافية السوفت */
+        /* شريط الكلمات المعبرة عن النجاح والتفوق داخل المنصة */
+        .success-tags-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .success-tag {
+            background: rgba(255, 193, 7, 0.12);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            color: #ffc107;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 900;
+        }
+        .success-tag.blue {
+            background: rgba(0, 210, 255, 0.12);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            color: #00d2ff;
+        }
+        .success-tag.red {
+            background: rgba(255, 0, 85, 0.12);
+            border: 1px solid rgba(255, 0, 85, 0.4);
+            color: #ff0055;
+        }
+
+        /* حقول التسجيل الفاخرة */
         .input-group-fabulous {
             margin-bottom: 22px;
             text-align: right;
@@ -109,59 +171,64 @@
         label {
             display: block;
             font-size: 14px;
-            margin-bottom: 10px;
-            color: #e2e8f0;
+            margin-bottom: 8px;
+            color: #ffd3b6;
             font-weight: 700;
         }
         input {
             width: 100%;
             padding: 16px 22px;
-            background: rgba(30, 41, 59, 0.85);
-            border: 2px solid #334155;
+            background: rgba(15, 10, 20, 0.9);
+            border: 2px solid #2a1b35;
             border-radius: 16px;
             color: #fff;
             font-size: 16px;
             transition: all 0.3s ease;
         }
         input:focus {
-            border-color: #38bdf8;
+            border-color: #ff0055;
             outline: none;
-            background: rgba(15, 23, 42, 0.99);
-            box-shadow: 0 0 18px rgba(56, 189, 248, 0.6);
+            background: rgba(5, 2, 8, 0.99);
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.5);
         }
 
-        /* زر التسجيل الفخم الروعة */
+        /* زر التسجيل الكبير بتدرجات نيون فخمة */
         .submit-btn-large {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+            background: linear-gradient(135deg, #ff0055, #ffc107);
             border: none;
             border-radius: 16px;
-            color: white;
-            font-size: 19px;
+            color: #090204;
+            font-size: 20px;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 15px;
-            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 0, 85, 0.5);
         }
         .submit-btn-large:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(14, 165, 233, 0.8);
-            opacity: 0.95;
+            box-shadow: 0 20px 50px rgba(255, 193, 7, 0.7);
+            opacity: 0.98;
         }
     </style>
 </head>
 <body>
 
     <div class="physics-background-vivid">
-        <div class="vivid-formula" style="left: 6%; font-size: 38px; color: #38bdf8; animation-duration: 22s;">E = mc²</div>
-        <div class="vivid-formula" style="left: 28%; font-size: 45px; color: #f43f5e; animation-duration: 30s; animation-delay: 3s;">F = ma</div>
-        <div class="vivid-formula" style="left: 55%; font-size: 35px; color: #10b981; animation-duration: 24s; animation-delay: 1s;">V = I × R</div>
-        <div class="vivid-formula" style="left: 78%; font-size: 40px; color: #f59e0b; animation-duration: 27s; animation-delay: 5s;">P_w = IV</div>
-        <div class="vivid-formula" style="left: 90%; font-size: 32px; color: #a855f7; animation-duration: 20s; animation-delay: 2s;">$\lambda = h/p$</div>
-        <div class="vivid-formula" style="left: 15%; font-size: 30px; color: #38bdf8; animation-duration: 18s; animation-delay: 6s;">emf = -N $\frac{\Delta \Phi}{\Delta t}$</div>
+        <div class="vivid-formula" style="left: 4%; font-size: 42px; color: #ff0055; animation-duration: 18s;">E = mc²</div>
+        <div class="vivid-formula" style="left: 22%; font-size: 46px; color: #ffc107; animation-duration: 25s; animation-delay: 2s;">F = BIL</div>
+        <div class="vivid-formula" style="left: 48%; font-size: 40px; color: #00d2ff; animation-duration: 20s; animation-delay: 1s;">V = I × R</div>
+        <div class="vivid-formula" style="left: 72%; font-size: 44px; color: #ff0055; animation-duration: 23s; animation-delay: 4s;">$\oint B \cdot dl$</div>
+        <div class="vivid-formula" style="left: 88%; font-size: 38px; color: #ffc107; animation-duration: 19s; animation-delay: 3s;">$\lambda = h/p$</div>
     </div>
+
+    <div class="physics-icon-graphic" style="top: 8%; left: 6%;">⚡</div>
+    <div class="physics-icon-graphic" style="bottom: 10%; right: 8%; animation-delay: 2s;">💡</div>
+    <div class="physics-icon-graphic" style="top: 12%; right: 10%; animation-delay: 1s;">⚙️</div>
+    
+    <div class="graphic-badge-success" style="top: 5%; left: 50%; transform: translateX(-50%);">✨ طريقك للدرجة النهائية ✨</div>
 
     <div class="platform-super-card">
         
@@ -170,7 +237,13 @@
         </div>
 
         <div class="eng-title-large">Eng. Mohamed Salah</div>
-        <p class="platform-desc">منصة الفيزياء المتقدمة لثانوية عامة - حيث تذوب أسرار الكهربية والحديثة بامتياز.</p>
+        <p class="platform-desc">منصة الفيزياء المتقدمة لثانوية عامة - حيث تتلاقى قوة الكهربية الحديثة مع عبقرية التفوق المطلق.</p>
+
+        <div class="success-tags-bar">
+            <span class="success-tag">🎯 أوائل الجمهورية</span>
+            <span class="success-tag blue">🚀 فهم عميق للفيزياء</span>
+            <span class="success-tag red">🏆 طريق النجاح الأكيد</span>
+        </div>
 
         <form id="studentRegistrationForm" onsubmit="registerStudentAndNotify(event)">
             <div class="input-group-fabulous">
@@ -198,6 +271,13 @@
     </div>
 
     <script>
+        // دالة تنقية مدخلات النصوص لحماية المنصة تماماً
+        function sanitizeInput(input) {
+            const element = document.createElement('div');
+            element.innerText = input;
+            return element.innerHTML;
+        }
+
         function registerStudentAndNotify(event) {
             event.preventDefault();
 
@@ -205,20 +285,24 @@
             btn.innerText = "جاري تفعيل الحساب وإرسال البيانات للتحكم...";
             btn.disabled = true;
 
-            // تجميع البيانات
+            const rawName = document.getElementById('studentName').value;
+            const rawStudentPhone = document.getElementById('studentPhone').value;
+            const rawParentPhone = document.getElementById('parentPhone').value;
+            const rawCode = document.getElementById('platformCode').value;
+
             const studentInfo = {
-                name: document.getElementById('studentName').value,
-                studentPhone: document.getElementById('studentPhone').value,
-                parentPhone: document.getElementById('parentPhone').value,
-                code: document.getElementById('platformCode').value,
+                name: sanitizeInput(rawName),
+                studentPhone: sanitizeInput(rawStudentPhone),
+                parentPhone: sanitizeInput(rawParentPhone),
+                code: sanitizeInput(rawCode),
                 timestamp: new Date().toLocaleString()
             };
 
-            // حفظ بيانات الطالب مؤقتًا
+            // حفظ بيانات الطالب مؤقتًا بطريقة آمنة
             localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
 
             // ==========================================
-            // ربط تليجرام (Telegram Bot) - ستملأها لاحقاً
+            // ربط تليجرام (Telegram Bot) - ضع بياناتك هنا
             // ==========================================
             const botToken = 'ضع_هنا_Token_البوت_الخاص_بك';
             const chatId = 'ضع_هنا_Chat_ID_الخاص_بك';
@@ -230,7 +314,6 @@
                                 `- كود المنصة: ${studentInfo.code}\n` +
                                 `- الوقت: ${studentInfo.timestamp}`;
 
-            // إرسال البيانات لتليجرام تلقائياً
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -245,8 +328,6 @@
                     alert('مرحباً بك يا ' + studentInfo.name + '! تم تسجيل بياناتك بنجاح وتم إرسال نسخة إلى النظام لتأكيد المتابعة مع ولي الأمر.');
                     btn.innerText = "دخول المنصة وبدء المحاضرة";
                     btn.disabled = false;
-                    // هنا يتم نقله لصفحة الأسئلة
-                    // window.location.href = 'exam.html';
                 } else {
                     alert('تم تسجيل الدخول محلياً، ولكن حدث خطأ في إرسال الإشعار للتحكم.');
                     btn.innerText = "دخول المنصة وبدء المحاضرة";
