@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* خلفية فيزيائية جرافيكية خارقة ومتوهجة بلورات النيون المتعددة */
+        /* خلفية فيزيائية جرافيكية خارقة ومتوهجة */
         .quantum-bg-grid {
             position: absolute;
             top: 0;
@@ -53,7 +53,6 @@
             100% { transform: translateY(-150px) translateX(-30px) rotate(360deg) scale(0.9); }
         }
 
-        /* شريط الجرافيك المتوهج العلوي للنجاح والتميز */
         .elite-glow-badge {
             position: absolute;
             top: 25px;
@@ -69,14 +68,8 @@
             color: #00f2fe;
             box-shadow: 0 0 35px rgba(0, 242, 254, 0.4), inset 0 0 15px rgba(255, 0, 119, 0.3);
             z-index: 20;
-            animation: badgePulse 3s infinite alternate;
-        }
-        @keyframes badgePulse {
-            0% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.3); }
-            100% { box-shadow: 0 0 45px rgba(255, 0, 119, 0.6); }
         }
 
-        /* حاوية المنصة الخارقة */
         .platform-quantum-card {
             position: relative;
             z-index: 10;
@@ -99,7 +92,6 @@
             margin: 80px 20px 30px 20px;
         }
 
-        /* مساحة الصورة الكبرى الواضحة جداً مع إطار نيون متحرك */
         .teacher-box-elite {
             width: 100%;
             height: 380px;
@@ -117,13 +109,8 @@
             object-fit: cover;
             object-position: center top;
             display: block;
-            transition: transform 0.5s ease;
-        }
-        .teacher-box-elite:hover img {
-            transform: scale(1.03);
         }
 
-        /* العنوان بتصميم أوربيترون وتدرجات نارية */
         .eng-title-elite {
             font-family: 'Orbitron', sans-serif;
             font-size: 42px;
@@ -133,7 +120,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 12px;
             letter-spacing: 2px;
-            filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.4));
         }
         .platform-desc {
             font-size: 16px;
@@ -143,7 +129,6 @@
             line-height: 1.7;
         }
 
-        /* لوحة الكلمات المعبرة والرموز المتوهجة للنجاح والأوائل */
         .success-matrix-bar {
             display: flex;
             justify-content: center;
@@ -159,22 +144,18 @@
             border-radius: 25px;
             font-size: 14px;
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
         }
         .matrix-chip.cyan {
             background: rgba(0, 242, 254, 0.1);
             border: 1px solid rgba(0, 242, 254, 0.5);
             color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
         .matrix-chip.magenta {
             background: rgba(255, 0, 119, 0.1);
             border: 1px solid rgba(255, 0, 119, 0.5);
             color: #ff0077;
-            box-shadow: 0 0 15px rgba(255, 0, 119, 0.2);
         }
 
-        /* حقول التسجيل الفاخرة والمضيئة */
         .input-group-quantum {
             margin-bottom: 24px;
             text-align: right;
@@ -185,7 +166,6 @@
             margin-bottom: 10px;
             color: #f1f5f9;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
         input {
             width: 100%;
@@ -204,7 +184,34 @@
             box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
         }
 
-        /* زر الدخول الخرافي المتوهج */
+        /* صندوق رسائل الخطأ أو النجاح الاحترافي داخل الموقع */
+        .alert-message-box {
+            padding: 15px 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+        .alert-message-box.error {
+            background: rgba(255, 0, 85, 0.15);
+            border: 2px solid #ff0055;
+            color: #ff4d88;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+        .alert-message-box.success {
+            background: rgba(0, 255, 128, 0.15);
+            border: 2px solid #00ff80;
+            color: #4dff9e;
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .submit-btn-quantum {
             width: 100%;
             padding: 20px;
@@ -216,14 +223,13 @@
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 15px;
+            margin-top: 5px;
             box-shadow: 0 15px 40px rgba(255, 0, 119, 0.5);
             letter-spacing: 1px;
         }
         .submit-btn-quantum:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 60px rgba(255, 204, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.6);
-            opacity: 0.98;
         }
     </style>
 </head>
@@ -233,10 +239,9 @@
 
     <div class="quantum-bg-grid">
         <div class="physics-floating-formula" style="left: 6%; font-size: 45px; color: #ff0077; animation-duration: 16s;">E = mc²</div>
-        <div class="physics-floating-formula" style="left: 25%; font-size: 50px; color: #ffcc00; animation-duration: 22s; animation-delay: 2s;">F = BIL sin($\theta$)</div>
-        <div class="physics-floating-formula" style="left: 50%; font-size: 44px; color: #00f2fe; animation-duration: 18s; animation-delay: 1s;">V = I × R</div>
-        <div class="physics-floating-formula" style="left: 75%; font-size: 48px; color: #ff0077; animation-duration: 24s; animation-delay: 4s;">$\oint B \cdot dl$</div>
-        <div class="physics-floating-formula" style="left: 90%; font-size: 40px; color: #ffcc00; animation-duration: 15s; animation-delay: 3s;">$\lambda = h/p$</div>
+        <div class="physics-floating-formula" style="left: 25%; font-size: 50px; color: #ffcc00; animation-duration: 22s;">F = BIL sin($\theta$)</div>
+        <div class="physics-floating-formula" style="left: 50%; font-size: 44px; color: #00f2fe; animation-duration: 18s;">V = I × R</div>
+        <div class="physics-floating-formula" style="left: 75%; font-size: 48px; color: #ff0077; animation-duration: 24s;">$\oint B \cdot dl$</div>
     </div>
 
     <div class="platform-quantum-card">
@@ -254,7 +259,9 @@
             <span class="matrix-chip magenta">💡 الفيزياء بمتعة</span>
         </div>
 
-        <form id="studentRegistrationForm" onsubmit="registerAndRedirectToWhatsApp(event)">
+        <div id="formAlertBox" class="alert-message-box"></div>
+
+        <form id="studentRegistrationForm" onsubmit="validateAndRegister(event)">
             <div class="input-group-quantum">
                 <label for="studentName">اسم الطالب الثلاثي:</label>
                 <input type="text" id="studentName" required placeholder="أدخل اسمك الكامل بوضوح للتفوق">
@@ -279,6 +286,8 @@
         </form>
     </div>
 
+    <script src="codes.js"></script>
+
     <script>
         function sanitizeInput(input) {
             const element = document.createElement('div');
@@ -286,14 +295,37 @@
             return element.innerHTML;
         }
 
-        function registerAndRedirectToWhatsApp(event) {
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('formAlertBox');
+            alertBox.innerText = message;
+            alertBox.className = `alert-message-box ${type}`;
+            alertBox.style.display = 'block';
+            
+            // تمرير الشاشة بصرياً نحو التنبيه ليراه الطالب بوضوح
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function validateAndRegister(event) {
             event.preventDefault();
 
             const rawName = document.getElementById('studentName').value;
             const rawStudentPhone = document.getElementById('studentPhone').value;
             const rawParentPhone = document.getElementById('parentPhone').value;
-            const rawCode = document.getElementById('platformCode').value;
+            const rawCode = document.getElementById('platformCode').value.trim();
 
+            // 1. التحقق من وجود ملف الأكواد أو المصفوفة بشكل سليم
+            if (typeof validCodes === 'undefined') {
+                showAlert('⚠️ خطأ في نظام التحقق الداخلي للمنصة. يرجى مراجعة إدارة الدعم الفني.', 'error');
+                return;
+            }
+
+            // 2. فحص الكود المدخل إذا كان موجوداً في ملف الأكواد الخارجي
+            if (!validCodes.includes(rawCode)) {
+                showAlert('❌ عذراً يا بطل، الكود الذي أدخلته غير صحيح أو غير مفعل. يرجى التواصل مع الإدارة للحصول على الكود السري الخاص بك.', 'error');
+                return;
+            }
+
+            // 3. إذا كان الكود صحيحاً، يتم معالجة البيانات وتجهيزها
             const studentInfo = {
                 name: sanitizeInput(rawName),
                 studentPhone: sanitizeInput(rawStudentPhone),
@@ -302,31 +334,33 @@
                 timestamp: new Date().toLocaleString()
             };
 
-            // حفظ بيانات الطالب محلياً لاستخدامها في الملفات أو الصفحات القادمة
+            // حفظ بيانات الطالب محلياً
             localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
 
-            // رقم الواتساب الخاص بك المخصص لاستقبال البيانات تلقائياً
+            // رقم الواتساب المخصص لاستقبال بيانات التسجيل الناجح
             const teacherWhatsAppNumber = "201102273068"; 
 
-            // صياغة الرسالة التي ستصلك خصيصاً على رقمك بالواتساب
-            const message = `✨ طالب جديد سجل في المنصة وتوهج:\n\n` +
+            // صياغة رسالة الواتساب المتكاملة
+            const message = `✨ طالب جديد سجل بنجاح بكود معتمد:\n\n` +
                             `👤 الاسم: ${studentInfo.name}\n` +
                             `📱 هاتف الطالب: ${studentInfo.studentPhone}\n` +
                             `📞 هاتف ولي الأمر: ${studentInfo.parentPhone}\n` +
-                            `🔑 كود المنصة: ${studentInfo.code}\n` +
+                            `🔑 كود المنصة المستخدم: ${studentInfo.code}\n` +
                             `⏰ وقت التسجيل: ${studentInfo.timestamp}`;
 
             const encodedMessage = encodeURIComponent(message);
             const whatsappAPI = `https://api.whatsapp.com/send?phone=${teacherWhatsAppNumber}&text=${encodedMessage}`;
 
-            // فتح الواتساب لديك خلف الكواليس لإرسال البيانات بالاسم ورقم الطالب وولي الأمر والكود
+            // إظهار رسالة نجاح فاخرة داخل الموقع
+            showAlert('🎉 تم التحقق من الكود بنجاح! جاري تفعيل حسابك ونقلك للمنصة...', 'success');
+
+            // فتح الواتساب في نافذة خلفية لإشعار الإدارة بالتسجيل
             window.open(whatsappAPI, '_blank');
 
-            // إعلام الطالب وتحويله مباشرة إلى صفحة المنصة أو الملف التالي الذي سنقوم بإنشائه
-            alert('مرحباً بك يا ' + studentInfo.name + '! تم تفعيل حسابك الأسطوري وتجهيز بياناتك، جاري نقلك لصفحة المنصة الآن.');
-            
-            // تحويل الطالب لصفحة المنصة الداخلية (الصفحة التالية التي سنصممها معاً)
-            window.location.href = 'platform.html';
+            // تحويل الطالب إلى صفحة المنصة الداخلية بعد تأكيد التحقق بلحظات
+            setTimeout(() => {
+                window.location.href = 'platform.html';
+            }, 1800);
         }
     </script>
 
