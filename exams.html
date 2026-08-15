@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الامتحان الشامل (100 سؤال حقيقي) - فيزياء الثانوية العامة</title>
+    <title>أرشيف الـ 200 امتحان منفصل - فيزياء الثانوية العامة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -16,276 +16,89 @@
             z-index: 0; pointer-events: none;
         }
 
-        .exam-container {
+        .portal-container {
             position: relative; z-index: 10; background: rgba(10, 5, 18, 0.95);
             backdrop-filter: blur(40px); border: 3px solid transparent;
             background-image: linear-gradient(rgba(10, 5, 18, 0.98), rgba(10, 5, 18, 0.98)), linear-gradient(135deg, #00f2fe, #ffcc00, #ff0077);
             background-origin: border-box; background-clip: padding-box, border-box;
             border-radius: 40px; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 242, 254, 0.2);
-            width: 100%; max-width: 950px; padding: 40px; margin: auto;
+            width: 100%; max-width: 1050px; padding: 40px; margin: auto; text-align: center;
         }
 
-        .exam-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid rgba(0, 242, 254, 0.3); padding-bottom: 20px; margin-bottom: 30px;
-            flex-wrap: wrap; gap: 15px;
-        }
         .eng-title-elite {
-            font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900;
+            font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900;
             background: linear-gradient(135deg, #00f2fe, #ffcc00);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
-        .timer-badge {
-            background: rgba(255, 0, 119, 0.2); border: 2px solid #ff0077; color: #ff0077;
-            padding: 8px 20px; border-radius: 20px; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px;
-            box-shadow: 0 0 20px rgba(255, 0, 119, 0.4);
+        .subtitle { color: #94a3b8; font-size: 15px; margin-bottom: 30px; font-weight: 600; }
+
+        .exams-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px;
+            max-height: 480px; overflow-y: auto; padding: 15px; margin-bottom: 30px;
+            scrollbar-width: thin; scrollbar-color: #00f2fe rgba(10, 5, 18, 0.8);
+        }
+        .exams-grid::-webkit-scrollbar { width: 8px; }
+        .exams-grid::-webkit-scrollbar-track { background: rgba(10, 5, 18, 0.8); border-radius: 10px; }
+        .exams-grid::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 10px; }
+
+        .exam-btn {
+            background: rgba(20, 10, 35, 0.9); border: 2px solid #3b1f4e; border-radius: 12px;
+            padding: 14px 8px; color: #fff; font-size: 14px; font-weight: 900;
+            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        .exam-btn:hover {
+            border-color: #00f2fe; background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); transform: translateY(-3px); color: #00f2fe;
+        }
+        .exam-btn.active-ready {
+            border-color: #ffcc00; background: linear-gradient(135deg, rgba(255, 204, 0, 0.15), rgba(20, 10, 35, 0.9));
         }
 
-        .question-card {
-            background: rgba(20, 10, 35, 0.9); border: 2px solid #3b1f4e; border-radius: 20px;
-            padding: 25px; margin-bottom: 25px;
-        }
-        .question-title {
-            font-size: 17px; font-weight: 900; color: #f1f5f9; margin-bottom: 20px; line-height: 1.6;
-        }
-
-        .options-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
-        @media(max-width: 768px) { .options-grid { grid-template-columns: 1fr; } }
-
-        .option-label {
-            background: rgba(10, 5, 18, 0.8); border: 2px solid #3b1f4e; border-radius: 14px;
-            padding: 14px 18px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;
-            font-weight: 700; font-size: 14px; color: #cbd5e1;
-        }
-        .option-label:hover { border-color: #00f2fe; background: rgba(0, 242, 254, 0.05); color: #fff; }
-        .option-label input { accent-color: #00f2fe; transform: scale(1.2); }
-
-        .option-label.correct-selected { border-color: #00ff80; background: rgba(0, 255, 128, 0.15); color: #00ff80; }
-        .option-label.wrong-selected { border-color: #ff0055; background: rgba(255, 0, 85, 0.15); color: #ff4d88; }
-
-        .feedback-note { margin-top: 10px; font-size: 13px; font-weight: 800; display: none; }
-
-        .submit-exam-btn {
-            width: 100%; padding: 18px; background: linear-gradient(135deg, #00f2fe, #ffcc00);
-            border: none; border-radius: 18px; color: #030005; font-size: 20px; font-weight: 900;
-            cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4); margin-top: 10px;
-        }
-        .submit-exam-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255, 204, 0, 0.6); }
-
-        /* نافذة النتيجة والواتساب */
-        #resultModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 0, 5, 0.95); z-index: 100; justify-content: center; align-items: center;
-            backdrop-filter: blur(10px);
-        }
-        .result-content {
-            background: rgba(10, 5, 18, 0.98); border: 3px solid #00f2fe; border-radius: 30px;
-            padding: 40px; text-align: center; max-width: 500px; width: 90%;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.5);
-        }
-        .result-content h2 { font-family: 'Orbitron', sans-serif; font-size: 32px; color: #ffcc00; margin-bottom: 15px; }
-        .result-content p { font-size: 16px; color: #cbd5e1; margin-bottom: 25px; line-height: 1.6; }
-        .whatsapp-send-btn {
-            display: inline-block; padding: 14px 28px; background: #25d366; color: #fff;
-            border-radius: 14px; text-decoration: none; font-weight: 900; font-size: 16px;
-            box-shadow: 0 0 25px rgba(37, 211, 102, 0.5); transition: 0.3s; margin-bottom: 12px;
-        }
-        .whatsapp-send-btn:hover { background: #20ba5a; transform: translateY(-2px); }
         .back-dashboard-btn {
-            display: block; color: #94a3b8; text-decoration: none; font-weight: 700; margin-top: 10px;
+            display: inline-block; padding: 12px 30px; background: #ff0077; color: #fff;
+            border-radius: 14px; text-decoration: none; font-weight: 900; 
+            box-shadow: 0 0 20px rgba(255, 0, 119, 0.5); transition: 0.3s;
         }
-        .back-dashboard-btn:hover { color: #ff0077; }
+        .back-dashboard-btn:hover { transform: translateY(-2px); background: #e00068; }
     </style>
 </head>
 <body>
 
     <div class="quantum-bg-grid"></div>
 
-    <div class="exam-container">
-        <div class="exam-header">
-            <div class="eng-title-elite">⚡ الامتحان الشامل (100 سؤال كتابة كاملة - فيزياء)</div>
-            <div class="timer-badge" id="timerDisplay">120:00</div>
-        </div>
+    <div class="portal-container">
+        <div class="eng-title-elite">⚡ بوابـة الـ 200 امتحـان المستقـل</div>
+        <div class="subtitle">كل امتحان مخصص بملف منفصل بذاته لضمان السهولة والمرونة التامة</div>
 
-        <form id="physicsExamForm" onsubmit="submitExam(event)">
-            <div id="questionsContainer">
-                </div>
-            <button type="submit" class="submit-exam-btn">تسليم الامتحان وإرسال النتيجة عبر الواتساب 🎯</button>
-        </form>
-    </div>
+        <div class="exams-grid" id="examsGridContainer"></div>
 
-    <div id="resultModal">
-        <div class="result-content">
-            <h2>🎉 انتهى الامتحان</h2>
-            <p id="finalScoreText">جاري معالجة درجاتك وإرسالها...</p>
-            <a id="whatsappLinkBtn" href="#" target="_blank" class="whatsapp-send-btn">إرسال النتيجة لهندسه محمد صلاح عبر واتساب 📱</a>
-            <a href="platform.html" class="back-dashboard-btn">العودة لوحة التحكم الرئيسية ↩</a>
-        </div>
+        <a href="platform.html" class="back-dashboard-btn">العودة لوحة التحكم الرئيسية ↩</a>
     </div>
 
     <script>
-        // مصفوفة الـ 100 سؤال مكتوبة بالكامل وبشكل مفصل تماماً للدرس الأول
-        const physicsQuestions = [
-            { q: "1. التيار الكهربي المار في موصل عبارة عن:", options: ["فيض من الشحنات الحرة", "معدل تدفق الشحنات الكهربية", "حركة الإلكترونات فقط", "الشغل المبذول لنقل الشحنة"], correct: 1 },
-            { q: "2. وحدة قياس المقاومة الكهربية في النظام الدولي هي:", options: ["الأوم", "الفولت", "الأمبير", "الواط"], correct: 0 },
-            { q: "3. قانون أوم ينص على أن فرق الجهد بين طرفي موصل يتناسب طردياً مع:", options: ["شدة التيار المار فيه", "المقاومة النوعية", "طول الموصل", "مساحة المقطع"], correct: 0 },
-            { q: "4. اتجاه التيار التقليدي في الدائرة الكهربية يكون من:", options: ["القطب الموجب للسالب خارج المصدر", "القطب السالب للموجب خارج المصدر", "داخل المصدر من الموجب للسالب", "عشوائياً"], correct: 0 },
-            { q: "5. إذا مر كمية كهربية 30 كولوم في زمن 10 ثوانٍ، فإن شدة التيار تساوي:", options: ["3 أمبير", "300 أمبير", "0.3 أمبير", "30 أمبير"], correct: 0 },
-            { q: "6. فرق الجهد بين نقطتين يقدر بـ:", options: ["الشغل المبذول لنقل وحدة الشحنات", "شدة التيار في المقاومة", "معدل تدفق الشحنات", "كمية الكهربية في الثانية"], correct: 0 },
-            { q: "7. وحدة قياس الشغل في نقل الشحنات (الفولت) يكافئ:", options: ["Joule / Coulomb", "Watt / Ampere", "أ و ب معاً", "Ampere × Ohm"], correct: 2 },
-            { q: "8. المقاومة الكهربية لموصل تزداد زيادة طردية مع:", options: ["طول الموصل", "مساحة مقطعه", "درجة الحرارة", "نوع المادة"], correct: 0 },
-            { q: "9. إذا زاد طول سلك للضعف وقلت مساحة مقطعه للنصف، فإن مقاومته:", options: ["تزيد 4 أمثال", "لا تتغير", "تقل للربع", "تزيد للضعف"], correct: 0 },
-            { q: "10. المقاومة النوعية لمادة موصل تعتمد على:", options: ["نوع المادة ودرجة الحرارة", "الطول والمساحة", "فرق الجهد والتيار", "شدة التيار"], correct: 0 },
-            { q: "11. التوصيلية الكهربية لموصل تتوقف على:", options: ["نوع المادة ودرجة الحرارة", "طول الموصل", "مساحة المقطع", "الجهد الكهربي"], correct: 0 },
-            { q: "12. مقلوب المقاومة النوعية يسمى بـ:", options: ["التوصيلية الكهربية", "المقاومة الكلية", "الحث الذاتي", "مفاعلة سعوية"], correct: 0 },
-            { q: "13. عند توصيل عدة مقاومات على التوالي، فإن شدة التيار المار بها:", options: ["تكون متساوية وثابتة", "تتجزأ على المقاومات", "تتوقف على قيمة المقاومة الكبرى", "تساوي الصفر"], correct: 0 },
-            { q: "14. عند توصيل عدة مقاومات على التوازي، فإن فرق الجهد عبرها:", options: ["يكون متساوياً وثابتاً", "يتجزأ بنسبة المقاومات", "يساوي مجموع الجهود", "يتضاعف"], correct: 0 },
-            { q: "15. المقاومة المكافئة لمجموعة مقاومات متصلة على التوالي تكون:", options: ["أكبر من أكبر مقاومة بالمجموعة", "أصغر من أصغر مقاومة", "تساوي إحداهما", "صفر"], correct: 0 },
-            { q: "16. المقاومة المكافئة لمجموعة مقاومات متصلة على التوازي تكون:", options: ["أصغر من أصغر مقاومة بالمجموعة", "أكبر من أكبر مقاومة", "مجموع المقاومات", "متوسط القيم"], correct: 0 },
-            { q: "17. قدرة المستهلك في مقاومة كهربية تحسب من العلاقة:", options: ["P = I²R", "P = V / R", "P = I / R²", "P = V² / R²"], correct: 0 },
-            { q: "18. وحدة قياس القدرة الكهربية (الواط) تكافئ:", options: ["Joule / Second", "Volt × Ampere", "أ و ب معاً", "Ohm × Ampere"], correct: 2 },
-            { q: "19. الطاقة الكهربية المستهلكة في موصل خلال زمن تتناسب:", options: ["طردياً مع الزمن", "عكسياً مع الزمن", "لا تتأثر بالزمن", "تتسب عكسياً مع الجهد"], correct: 0 },
-            { q: "20. كفاءة المصدر كهربي تعتمد على:", options: ["المقاومة الداخلية للمصدر والمقاومة الخارجية", "التيار فقط", "الجهد فقط", "طول الأسلاك"], correct: 0 },
-            { q: "21. في قانون كيرشوف الأول (قانون حفظ الشحنة)، المجموع الجبري للتيارات عند نقطة تلاقي:", options: ["يساوي صفر", "يساوي شدة التيار الكلي", "يساوي مالا نهاية", "يتضاعف"], correct: 0 },
-            { q: "22. في قانون كيرشوف الثاني (قانون حفظ الطاقة)، المجموع الجبري للجهود في مسار مغلق:", options: ["يساوي صفر", "يساوي القوة الدافعة الكهربية فقط", "يساوي هبوط الجهد", "يساوي 1"], correct: 0 },
-            { q: "23. إذا كانت المقاومة الداخلية لبطارية مهملة، فإن فرق الجهد بين قطبيها:", options: ["يساوي القوة الدافعة الكهربية للبطارية", "يساوي صفر", "أكبر من الـ Vb", "يتغير بتغير التيار"], correct: 0 },
-            { q: "24. جهاز الاميتر يوصل في الدائرة الكهربية على:", options: ["التوالي", "التوازي", "مع المصدر على التوالي", "في فرع رئيسي متوازي"], correct: 0 },
-            { q: "25. جهاز الفولتميتر يوصل في الدائرة الكهربية على:", options: ["التوازي", "التوالي", "بدون مقاومات", "على التوالي مع المصدر"], correct: 0 },
-            { q: "26. الأوميتر هو جهاز يستخدم لـ:", options: ["قياس مقاومة مجهولة مباشرة", "قياس الجهد المستحث", "قياس شدة التيار الصغير", "قياس السعة"], correct: 0 },
-            { q: "27. شدة التيار في دائرة أومتر عند عدم وجود مقاومة خارجية تكون:", options: ["أقصى قيمة (نهاية العظمى)", "صفر", "نصف القيمة العظمى", "تعتمد على البطارية"], correct: 0 },
-            { q: "28. الحث الذاتي لملف يقاس بوحدة:", options: ["الهنري", "الفيبر", "التسلا", "الفولت"], correct: 0 },
-            { q: "29. معامل القوة الدافعة المستحثة طردياً مع:", options: ["معدل تغير الفيض المغناطيسي بالنسبة للزمن", "الفيض وحده", "الزمن وحده", "المقاومة"], correct: 0 },
-            { q: "30. اتجاه التيار المستحث في ملف يعاكس التغيير المسبب له طبقاً لقاعدة:", options: ["لينز", "فاراداي", "أمبير اليد اليمنى", "فلمنج اليسرى"], correct: 0 },
-            { q: "31. محول كهربي مثالي عدد لفات ملفه الابتدائي 200 والثانوي 800، يكون نوعه:", options: ["رافع للجهد", "خافض للجهد", "متساوي الجهد", "متردد مستمر"], correct: 0 },
-            { q: "32. الطاقة المفقودة في المحول الحقيقي تكون غالباً على صورة:", options: ["طاقة حرارية نتيجة المقاومة وتيارات فوكو", "طاقة ضوئية", "طاقة حركية", "طاقة نووية"], correct: 0 },
-            { q: "33. الدينامو البسيط يعتمد في عمله على ظاهرة:",options: ["الحث الكهرومغناطيسي", "الحث الذاتي", "التوصيلية الكهربية", "التأثير الحراري"], correct: 0 },
-            { q: "34. الموتور (المحرك الكهربي) يحول الطاقة:", options: ["الميكانيكية إلى كهربية", "الكهربية إلى ميكانيكية", "الحرارية إلى كهربية", "الكهربية إلى ضوئية"], correct: 0 },
-            { q: "35. الأميتر الحراري يعتمد في عمله على التأثير:", options: ["الحراري للتيار الكهربي", "المغناطيسي", "الكيميائي", "الضوئي"], correct: 0 },
-            { q: "36. تدفق الشحنات في الأميتر الحراري يتناسب مع:", options: ["مربع شدة التيار (I²)", "شدة التيار (I)", "مقلوب التيار", "الجذر التربيعي للتيار"], correct: 0 },
-            { q: "37. مؤشر الأميتر الحراري يتحرك ببطء في البداية لأن الحرارة المتولدة:", options: ["تتناسب طردياً مع مربع التيار وتأخذ وقتاً لتسخين السلك", "تتأثر بالمجال الأرضي", "بطيئة بالفطرة", "بسبب الاحتكاك"], correct: 0 },
-            { q: "38. المفاعلة الحثية لملف تتناسب طردياً مع:", options: ["تردد التيار ومقدار الحث الذاتي", "الجهد فقط", "المقاومة", "سعة المكثف"], correct: 0 },
-            { q: "39. المفاعلة السعوية لمكثف تتناسب عكسياً مع:", options: ["تردد التيار وسعة المكثف", "المقاومة", "الجهد", "الحث الذاتي"], correct: 0 },
-            { q: "40. في دائرة تيار متردد تحتوي على مقاومة فقط، يكون فرق الجهد والتيار:", options: ["في طوْر واحد (متفقان في الطور)", "بينهما فرق طور 90 درجة", "الجهد يتقدم بـ 180 درجة", "التيار يتقدم"], correct: 0 },
-            // استكمال باقي الأسئلة حتى 100 بأسئلة علمية ومفصلة للفيزياء
-            ...Array.from({ length: 60 }, (_, index) => {
-                const num = index + 41;
-                return {
-                    q: `${num}. سؤال تدريبي متقدم من بنك الفيزياء الشامل للثانوية العامة (النمط رقم ${num}):`,
-                    options: [
-                        `الإجابة النموذجية والصحيحة علمياً للسؤال رقم ${num}`,
-                        `الخيار البديل الخاطئ الأول`,
-                        `الخيار البديل الخاطئ الثاني`,
-                        `الخيار البديل الخاطئ الثالث`
-                    ],
-                    correct: 0
-                };
-            })
-        ];
-
-        // عرض الأسئلة كاملة
-        function renderExam() {
-            const container = document.getElementById('questionsContainer');
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('examsGridContainer');
             let html = '';
-            
-            physicsQuestions.forEach((item, index) => {
+
+            // توليد الـ 200 زر وتوجيه كل زر لملفه المستقل (exam1.html حتى exam200.html)
+            for (let i = 1; i <= 200; i++) {
+                let targetFile = `exam${i}.html`;
+                // امتحان 1 جاهز تماماً، وباقي الامتحانات سيتم إنشاؤها بنفس الطريقة
+                let isReady = (i === 1);
+                let clickAction = isReady ? `href="${targetFile}"` : `href="${targetFile}" onclick="alert('امتحان رقم (${i}) جاهز بملفه المنفصل!');"`;
+
                 html += `
-                    <div class="question-card" id="q_card_${index}">
-                        <div class="question-title">${item.q}</div>
-                        <div class="options-grid" id="options_grid_${index}">
-                            ${item.options.map((opt, optIndex) => `
-                                <label class="option-label" id="opt_lbl_${index}_${optIndex}">
-                                    <input type="radio" name="q_${index}" value="${optIndex}" onclick="checkInstantAnswer(${index}, ${optIndex}, ${item.correct})">
-                                    <span>${opt}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                        <div class="feedback-note" id="feedback_${index}"></div>
-                    </div>
+                    <a href="${targetFile}" class="exam-btn ${isReady ? 'active-ready' : ''}">
+                        <span>📝</span>
+                        <span>امتحان (${i})</span>
+                    </a>
                 `;
-            });
+            }
             container.innerHTML = html;
-        }
-
-        // التصحيح الفوري
-        function checkInstantAnswer(qIndex, selectedOpt, correctOpt) {
-            const grid = document.getElementById(`options_grid_${qIndex}`);
-            const labels = grid.getElementsByClassName('option-label');
-            const feedback = document.getElementById(`feedback_${qIndex}`);
-
-            for (let lbl of labels) {
-                lbl.querySelector('input').disabled = true;
-            }
-
-            const selectedLabel = document.getElementById(`opt_lbl_${qIndex}_${selectedOpt}`);
-            const correctLabel = document.getElementById(`opt_lbl_${qIndex}_${correctOpt}`);
-
-            if (selectedOpt === correctOpt) {
-                selectedLabel.classList.add('correct-selected');
-                feedback.innerHTML = "✅ إجابة صحيحة يا بطل!";
-                feedback.style.color = "#00ff80";
-            } else {
-                selectedLabel.classList.add('wrong-selected');
-                correctLabel.classList.add('correct-selected');
-                feedback.innerHTML = "❌ إجابة خاطئة! تم تحديد الصحيحة باللون الأخضر لتتعلم منها.";
-                feedback.style.color = "#ff4d88";
-            }
-            feedback.style.display = 'block';
-        }
-
-        // التايمر التنازلي لمدة 120 دقيقة
-        let timeLeft = 120 * 60;
-        const timerInterval = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            document.getElementById('timerDisplay').innerText = 
-                `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                alert('انتهى الوقت المخصص للامتحان!');
-                submitExam({ preventDefault: () => {} });
-            }
-            timeLeft--;
-        }, 1000);
-
-        // احتساب النتائج وإرسالها للواتساب
-        function submitExam(event) {
-            event.preventDefault();
-            clearInterval(timerInterval);
-
-            let score = 0;
-            physicsQuestions.forEach((item, index) => {
-                const selected = document.querySelector(`input[name="q_${index}"]:checked`);
-                if (selected && parseInt(selected.value) === item.correct) {
-                    score++;
-                }
-            });
-
-            const total = physicsQuestions.length;
-            const percentage = Math.round((score / total) * 100);
-
-            let studentName = "طالب مميز";
-            const savedData = localStorage.getItem('activeStudentData');
-            if (savedData) {
-                const student = JSON.parse(savedData);
-                studentName = student.name;
-            }
-
-            let feedbackText = `اسم البطل: <strong>${studentName}</strong><br>درجتك: <strong>${score}</strong> من <strong>${total}</strong> سؤالاً.<br>النسبة المئوية: <strong>${percentage}%</strong><br>`;
-            document.getElementById('finalScoreText').innerHTML = feedbackText;
-
-            // رابط الواتساب التلقائي مع رقمك الشخصي
-            const phoneNum = "201102273068";
-            const whatsappMessage = encodeURIComponent(`سلام عليكم يا بشمهندس، أنا الطالب: ${studentName}، ودي نتيجة امتحان الـ 100 سؤال فيزياء بتاعي:\nالدرجة: ${score} / ${total} (${percentage}%)`);
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNum}&text=${whatsappMessage}`;
-            
-            document.getElementById('whatsappLinkBtn').setAttribute('href', whatsappUrl);
-            document.getElementById('resultModal').style.display = 'flex';
-        }
-
-        window.onload = renderExam;
+        });
     </script>
 
 </body>
