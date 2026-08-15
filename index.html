@@ -12,15 +12,18 @@
             padding: 0;
             font-family: 'Cairo', sans-serif;
         }
-        body {
+        
+        /* تعديل تثبيت الشاشة تماماً لتعمل كالتطبيق الموبايلي من غير أي حركة أو سكرول للشاشة */
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: fixed;
             background: #030005;
             color: #fff;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            position: relative;
         }
 
         .quantum-bg-grid {
@@ -54,14 +57,14 @@
 
         .elite-glow-badge {
             position: absolute;
-            top: 25px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(90deg, rgba(255, 0, 119, 0.2), rgba(0, 242, 254, 0.2), rgba(255, 204, 0, 0.2));
             border: 2px solid rgba(0, 242, 254, 0.6);
             border-radius: 40px;
-            padding: 10px 30px;
-            font-size: 15px;
+            padding: 8px 25px;
+            font-size: 14px;
             font-weight: 900;
             letter-spacing: 1px;
             color: #00f2fe;
@@ -80,25 +83,27 @@
                               linear-gradient(135deg, #ff0077, #00f2fe, #ffcc00);
             background-origin: border-box;
             background-clip: padding-box, border-box;
-            border-radius: 50px;
+            border-radius: 40px;
             box-shadow: 0 70px 140px rgba(0, 0, 0, 0.95), 
                         0 0 60px rgba(255, 0, 119, 0.3), 
                         0 0 60px rgba(0, 242, 254, 0.3);
-            width: 100%;
-            max-width: 700px;
-            padding: 55px 45px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh; /* تقييد الارتفاع لكي لا يخرج عن حدود الشاشة */
+            overflow-y: auto;  /* تمرير داخلي للكارت فقط إذا لزم الأمر */
+            padding: 40px 35px;
             text-align: center;
-            margin: 80px 20px 30px 20px;
+            margin-top: 30px;
         }
 
         .teacher-box-elite {
             width: 100%;
-            height: 380px;
-            border-radius: 35px;
+            height: 250px;
+            border-radius: 25px;
             overflow: hidden;
             border: 4px solid #ff0077;
             box-shadow: 0 25px 60px rgba(255, 0, 119, 0.6), 0 0 30px rgba(0, 242, 254, 0.4);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background: #020617;
             position: relative;
         }
@@ -112,36 +117,36 @@
 
         .eng-title-elite {
             font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
+            font-size: 34px;
             font-weight: 900;
             background: linear-gradient(135deg, #ff0077, #ffcc00, #00f2fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 2px;
         }
         .platform-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: #cbd5e1;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: 700;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .success-matrix-bar {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 35px;
+            gap: 12px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
         .matrix-chip {
             background: rgba(255, 204, 0, 0.1);
             border: 1px solid rgba(255, 204, 0, 0.5);
             color: #ffcc00;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 900;
         }
         .matrix-chip.cyan {
@@ -156,24 +161,24 @@
         }
 
         .input-group-quantum {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             text-align: right;
         }
         label {
             display: block;
-            font-size: 15px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 8px;
             color: #f1f5f9;
             font-weight: 700;
         }
         input {
             width: 100%;
-            padding: 18px 22px;
+            padding: 14px 18px;
             background: rgba(20, 10, 35, 0.9);
             border: 2px solid #3b1f4e;
-            border-radius: 18px;
+            border-radius: 15px;
             color: #fff;
-            font-size: 17px;
+            font-size: 16px;
             transition: all 0.3s ease;
         }
         input:focus {
@@ -184,10 +189,10 @@
         }
 
         .alert-message-box {
-            padding: 15px 20px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            font-size: 15px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
             font-weight: 700;
             display: none;
             text-align: center;
@@ -212,12 +217,12 @@
 
         .submit-btn-quantum {
             width: 100%;
-            padding: 20px;
+            padding: 16px;
             background: linear-gradient(135deg, #ff0077, #ffcc00);
             border: none;
-            border-radius: 18px;
+            border-radius: 15px;
             color: #030005;
-            font-size: 21px;
+            font-size: 18px;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -226,11 +231,10 @@
             letter-spacing: 1px;
         }
         .submit-btn-quantum:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 60px rgba(255, 204, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 204, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.6);
         }
 
-        /* تنسيق معاينة صورة المستخدم الشخصية */
         .file-input-wrapper {
             position: relative;
             overflow: hidden;
@@ -248,10 +252,10 @@
         .file-custom-btn {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: rgba(20, 10, 35, 0.9);
             border: 2px dashed #00f2fe;
-            border-radius: 18px;
+            border-radius: 15px;
             color: #00f2fe;
             text-align: center;
             font-weight: 700;
@@ -318,7 +322,6 @@
             alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // دالة لتحويل الصور المرفوعة إلى نص (Base64) لتخزينها محلياً وبقائها ثابتة
         function getBase64(file, callback) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -326,7 +329,6 @@
             reader.onerror = function (error) { console.log('Error: ', error); };
         }
 
-        // عند تحميل الصفحة، نحدد شكل الفورم المطلوب بناءً على حالة الطالب
         window.onload = function() {
             const isFirstVerified = localStorage.getItem('isFirstVerified') === 'true';
             const isAccountCreated = localStorage.getItem('isAccountCreated') === 'true';
@@ -335,7 +337,6 @@
             const btnEl = document.getElementById('actionBtn');
 
             if (!isFirstVerified) {
-                // الحالة الأولى: أول مرة خالص (بيانات التفعيل والواتساب)
                 descEl.innerText = "أدخل بياناتك الأساسية وكود المنصة لإرسالها وتفعيل حسابك عبر الواتساب للمستر لأول مرة فقط.";
                 btnEl.innerText = "تفعيل وإرسال للمستر عبر الواتساب 📱";
                 fieldsContainer.innerHTML = `
@@ -357,7 +358,6 @@
                     </div>
                 `;
             } else if (!isAccountCreated) {
-                // الحالة الثانية: بعد إرسال الواتساب والرجوع (إنشاء الحساب الدائم وكلمة السر والصورة)
                 const tempName = JSON.parse(localStorage.getItem('activeStudentData') || '{}').name || '';
                 descEl.innerText = "تم استقبال تفعيلك بنجاح! الآن أنشئ حسابك الدائم (كلمة السر وصورتك الشخصية).";
                 btnEl.innerText = "إنشاء الحساب الدائم والدخول 🚀";
@@ -383,7 +383,6 @@
                     </div>
                 `;
             } else {
-                // الحالة الثالثة: الطالب مسجل ولديه حساب (يظهر اسم المستخدم الثابت ويُطلب منه كلمة السر فقط)
                 const savedData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
                 descEl.innerText = "مرحباً بك مجدداً يا بطل. أدخل كلمة السر الخاصة بك للدخول للمنصة.";
                 btnEl.innerText = "تسجيل الدخول للمنصة ⚡";
@@ -406,7 +405,6 @@
             }
         }
 
-        // دالة التحكم المركزية في حالات التسجيل والدخول
         function handlePlatformAuth(event) {
             event.preventDefault();
 
@@ -415,7 +413,6 @@
             const teacherWhatsAppNumber = "201102273068"; 
 
             if (!isFirstVerified) {
-                // خطوة 1: التحقق من الكود وإرسال الواتساب لأول مرة
                 const rawName = document.getElementById('studentName').value;
                 const rawStudentPhone = document.getElementById('studentPhone').value;
                 const rawParentPhone = document.getElementById('parentPhone').value;
@@ -439,7 +436,6 @@
                     timestamp: new Date().toLocaleString()
                 };
 
-                // حفظ مؤقت لحين إنشاء كلمة السر والصورة
                 localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
 
                 const message = `✨ طالب جديد يطلب التفعيل بكود معتمد:\n\n` +
@@ -452,18 +448,15 @@
 
                 showAlert('📱 تم التحقق من الكود بنجاح! جاري تحويلك للواتساب لإرسال رسالة التفعيل للمستر...', 'success');
 
-                // فتح الواتساب
                 window.open(whatsappAPI, '_blank');
 
-                // تفعيل العلامة أن الطالب أرسل/فتح رابط الواتساب، وعند عودته ستتغير الصفحة لإنشاء الحساب
                 localStorage.setItem('isFirstVerified', 'true');
 
                 setTimeout(() => {
-                    location.reload(); // إعادة تحميل الصفحة لتظهر خطوة إنشاء الحساب الدائم
+                    location.reload();
                 }, 2000);
 
             } else if (!isAccountCreated) {
-                // خطوة 2: إنشاء الحساب الدائم (كلمة السر، تأكيدها، والصورة الشخصية)
                 const password = document.getElementById('newPassword').value;
                 const confirmPass = document.getElementById('confirmPassword').value;
                 const imageInput = document.getElementById('userImageFile');
@@ -478,7 +471,6 @@
                     return;
                 }
 
-                // حفظ الصورة كـ Base64 لتبقى ثابتة دائماً في متصفح الطالب
                 getBase64(imageInput.files[0], function(base64Image) {
                     let studentData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
                     studentData.password = password;
@@ -490,12 +482,11 @@
                     showAlert('🎉 تم إنشاء حسابك الدائم بنجاح! جاري نقلك لملفات المنصة الداخلية...', 'success');
 
                     setTimeout(() => {
-                        window.location.href = 'platform.html'; // الانتقال للملفات الداخلية
+                        window.location.href = 'platform.html';
                     }, 1500);
                 });
 
             } else {
-                // خطوة 3: الدخول الدائم في المرات القادمة (الاسم ثابت ويُدخل كلمة السر فقط)
                 const enteredPassword = document.getElementById('loginPassword').value;
                 const savedData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
 
