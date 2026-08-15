@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Eng. Mohamed Salah - Quantum Physics Elite Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +13,7 @@
             font-family: 'Cairo', sans-serif;
         }
         
-        /* تعديل تثبيت الشاشة تماماً لتعمل كالتطبيق الموبايلي من غير أي حركة أو سكرول للشاشة */
+        /* تثبيت تام للشاشة ومنع أي سكرول أو حركة خارجية */
         html, body {
             width: 100%;
             height: 100vh;
@@ -89,8 +89,8 @@
                         0 0 60px rgba(0, 242, 254, 0.3);
             width: 90%;
             max-width: 650px;
-            max-height: 85vh; /* تقييد الارتفاع لكي لا يخرج عن حدود الشاشة */
-            overflow-y: auto;  /* تمرير داخلي للكارت فقط إذا لزم الأمر */
+            max-height: 85vh; 
+            overflow-y: auto;  
             padding: 40px 35px;
             text-align: center;
             margin-top: 30px;
@@ -479,7 +479,7 @@
                     localStorage.setItem('activeStudentData', JSON.stringify(studentData));
                     localStorage.setItem('isAccountCreated', 'true');
 
-                    showAlert('🎉 تم إنشاء حسابك الدائم بنجاح! جاري نقلك لملفات المنصة الداخلية...', 'success');
+                    showAlert('🎉 تم إنشاء حسابك الدائم بنجاح! جاري نقلك للمنصة الداخلية...', 'success');
 
                     setTimeout(() => {
                         window.location.href = 'platform.html';
