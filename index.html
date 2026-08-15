@@ -279,9 +279,9 @@
 
     <div class="quantum-bg-grid">
         <div class="physics-floating-formula" style="left: 6%; font-size: 45px; color: #ff0077; animation-duration: 16s;">E = mc²</div>
-        <div class="physics-floating-formula" style="left: 25%; font-size: 50px; color: #ffcc00; animation-duration: 22s;">F = BIL sin($\theta$)</div>
+        <div class="physics-floating-formula" style="left: 25%; font-size: 50px; color: #ffcc00; animation-duration: 22s;">F = BIL sin(θ)</div>
         <div class="physics-floating-formula" style="left: 50%; font-size: 44px; color: #00f2fe; animation-duration: 18s;">V = I × R</div>
-        <div class="physics-floating-formula" style="left: 75%; font-size: 48px; color: #ff0077; animation-duration: 24s;">$\oint B \cdot dl$</div>
+        <div class="physics-floating-formula" style="left: 75%; font-size: 48px; color: #ff0077; animation-duration: 24s;">∮ B · dl</div>
     </div>
 
     <div class="platform-quantum-card">
@@ -303,8 +303,7 @@
 
         <form id="studentRegistrationForm" onsubmit="handlePlatformAuth(event)">
             
-            <div id="dynamicFormFields">
-                </div>
+            <div id="dynamicFormFields"></div>
 
             <button type="submit" class="submit-btn-quantum" id="actionBtn">دخول المنصة وبدء المحاضرة الكبرى</button>
         </form>
@@ -312,10 +311,10 @@
 
     <script src="codes.js"></script>
 
-    <!-- سكربت جافاسكريبت متكامل للتحقق، الأمان، والإشعارات السحابية -->
+    <!-- سكربت جافاسكريبت متكامل للاتصال بقاعدة البيانات وحفر البيانات -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onChildAdded, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDPOmjs_GVMhx9qlEURlI90Gb1BDR9hiz8",
@@ -330,6 +329,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        // جعل دשالة المصادقة متاحة عالمياً داخل النطاق
+        window.firebaseDb = db;
+        window.firebaseSetRef = set;
+        window.firebaseRef = ref;
 
         // الاستماع الفوري للإشعارات القادمة من لوحة تحكم الأدمن
         const notifRef = ref(db, 'global_notifications');
@@ -464,7 +468,6 @@
                     return;
                 }
 
-                // كود سري خاص بالأدمن (يمكنك تغليظه أو وضعه في ملف الأكواد)
                 const ADMIN_SECRET_CODE = "ADMIN-QUANTUM-2026"; 
                 let isAdminUser = false;
 
@@ -480,7 +483,7 @@
                     studentPhone: sanitizeInput(rawStudentPhone),
                     parentPhone: sanitizeInput(rawParentPhone),
                     code: sanitizeInput(rawCode),
-                    isAdmin: isAdminUser, // منح صلاحية الأدمن حصرياً لمن أدخل كود الأدمن
+                    isAdmin: isAdminUser,
                     timestamp: new Date().toLocaleString()
                 };
 
@@ -525,15 +528,36 @@
                     let studentData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
                     studentData.password = password;
                     studentData.userImage = base64Image;
+                    studentData.status = "online";
 
                     localStorage.setItem('activeStudentData', JSON.stringify(studentData));
                     localStorage.setItem('isAccountCreated', 'true');
 
-                    showAlert('🎉 تم إنشاء حسابك الدائم بنجاح! جاري نقلك للمنصة الداخلية...', 'success');
+                    const cleanUserId = studentData.name.replace(/\s+/g, '_') + '_' + Date.now().toString().slice(-4);
+                    localStorage.setItem('userId', cleanUserId);
 
-                    setTimeout(() => {
-                        window.location.href = 'platform.html';
-                    }, 1500);
+                    // حفر بيانات الطالب في قاعدة البيانات لكي تظهر فوراً في لوحة الأدمن
+                    if (window.firebaseDb && window.firebaseSetRef && window.firebaseRef) {
+                        window.firebaseSetRef(window.firebaseRef(window.firebaseDb, 'quantum_users/' + cleanUserId), {
+                            name: studentData.name,
+                            studentPhone: studentData.studentPhone,
+                            userImage: base64Image,
+                            status: "online",
+                            lastSeen: Date.now()
+                        }).then(() => {
+                            showAlert('🎉 تم حفظ بياناتك وحفر حسابك في قاعدة البيانات بنجاح!', 'success');
+                            setTimeout(() => {
+                                window.location.href = 'platform.html';
+                            }, 1500);
+                        }).catch((err) => {
+                            console.error(err);
+                            showAlert('⚠️ تم إنشاء الحساب محلياً، ولكني واجهت مشكلة في الاتصال بقاعدة البيانات.', 'error');
+                        });
+                    } else {
+                        setTimeout(() => {
+                            window.location.href = 'platform.html';
+                        }, 1500);
+                    }
                 });
 
             } else {
