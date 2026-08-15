@@ -13,7 +13,6 @@
             font-family: 'Cairo', sans-serif;
         }
         
-        /* تثبيت تام للشاشة ومنع أي سكرول أو حركة خارجية */
         html, body {
             width: 100%;
             height: 100vh;
@@ -270,6 +269,12 @@
 </head>
 <body>
 
+    <!-- شريط عرض الإشعارات السحابية الفورية المنبثقة -->
+    <div id="globalNotifBanner" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg, #ff0077, #7928ca); color:#fff; padding:15px 30px; border-radius:12px; z-index:9999; box-shadow:0 10px 30px rgba(0,0,0,0.8); font-weight:bold; text-align:center; max-width:90%;">
+        <span id="notifContentText"></span>
+        <button onclick="document.getElementById('globalNotifBanner').style.display='none'" style="background:none; border:none; color:#fff; margin-right:15px; cursor:pointer; font-size:16px;">✕ إغلاق</button>
+    </div>
+
     <div class="elite-glow-badge">⚡ 👑 ⚡ أنت الآن في المكان الصح ⚡ 👑 ⚡</div>
 
     <div class="quantum-bg-grid">
@@ -306,6 +311,41 @@
     </div>
 
     <script src="codes.js"></script>
+
+    <!-- سكربت جافاسكريبت متكامل للتحقق، الأمان، والإشعارات السحابية -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDPOmjs_GVMhx9qlEURlI90Gb1BDR9hiz8",
+          authDomain: "quantumchat-30a44.firebaseapp.com",
+          databaseURL: "https://quantumchat-30a44-default-rtdb.firebaseio.com",
+          projectId: "quantumchat-30a44",
+          storageBucket: "quantumchat-30a44.firebasestorage.app",
+          messagingSenderId: "898270556820",
+          appId: "1:898270556820:web:0dc8cbf8bd510daab37a81",
+          measurementId: "G-S8BF8Z6RT2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // الاستماع الفوري للإشعارات القادمة من لوحة تحكم الأدمن
+        const notifRef = ref(db, 'global_notifications');
+        onChildAdded(notifRef, (snapshot) => {
+            const data = snapshot.val();
+            if(data && data.message) {
+                const banner = document.getElementById('globalNotifBanner');
+                document.getElementById('notifContentText').innerText = `⚡ تنبيه إداري جديد: ${data.message}`;
+                banner.style.display = 'block';
+                
+                setTimeout(() => {
+                    banner.style.display = 'none';
+                }, 10000);
+            }
+        });
+    </script>
 
     <script>
         function sanitizeInput(input) {
@@ -354,8 +394,8 @@
                         <input type="tel" id="parentPhone" required placeholder="01xxxxxxxx0">
                     </div>
                     <div class="input-group-quantum">
-                        <label for="platformCode">كود المنصة الخاص بك:</label>
-                        <input type="text" id="platformCode" required placeholder="أدخل كود الاشتراك السري">
+                        <label for="platformCode">كود المنصة الخاص بك (أو كود الأدمن السري):</label>
+                        <input type="text" id="platformCode" required placeholder="أدخل كود الاشتراك أو كود الأدمن">
                     </div>
                 `;
             } else if (!isAccountCreated) {
@@ -424,7 +464,13 @@
                     return;
                 }
 
-                if (!validCodes.includes(rawCode)) {
+                // كود سري خاص بالأدمن (يمكنك تغليظه أو وضعه في ملف الأكواد)
+                const ADMIN_SECRET_CODE = "ADMIN-QUANTUM-2026"; 
+                let isAdminUser = false;
+
+                if (rawCode === ADMIN_SECRET_CODE) {
+                    isAdminUser = true;
+                } else if (!validCodes.includes(rawCode)) {
                     showAlert('❌ عذراً يا بطل، كود المنصة غير صحيح أو غير مفعل.', 'error');
                     return;
                 }
@@ -434,22 +480,25 @@
                     studentPhone: sanitizeInput(rawStudentPhone),
                     parentPhone: sanitizeInput(rawParentPhone),
                     code: sanitizeInput(rawCode),
+                    isAdmin: isAdminUser, // منح صلاحية الأدمن حصرياً لمن أدخل كود الأدمن
                     timestamp: new Date().toLocaleString()
                 };
 
                 localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
 
-                const message = `✨ طالب جديد يطلب التفعيل بكود معتمد:\n\n` +
-                                `👤 الاسم: ${studentInfo.name}\n` +
-                                `📱 هاتف الطالب: ${studentInfo.studentPhone}\n` +
-                                `📞 هاتف ولي الأمر: ${studentInfo.parentPhone}\n` +
-                                `🔑 الكود: ${studentInfo.code}`;
+                if (isAdminUser) {
+                    showAlert('👑 تم التعرف على حساب الأدمن بنجاح! جاري إنشاء حساب الإدارة...', 'success');
+                } else {
+                    const message = `✨ طالب جديد يطلب التفعيل بكود معتمد:\n\n` +
+                                    `👤 الاسم: ${studentInfo.name}\n` +
+                                    `📱 هاتف الطالب: ${studentInfo.studentPhone}\n` +
+                                    `📞 هاتف ولي الأمر: ${studentInfo.parentPhone}\n` +
+                                    `🔑 الكود: ${studentInfo.code}`;
 
-                const whatsappAPI = `https://api.whatsapp.com/send?phone=${teacherWhatsAppNumber}&text=${encodeURIComponent(message)}`;
-
-                showAlert('📱 تم التحقق من الكود بنجاح! جاري تحويلك للواتساب لإرسال رسالة التفعيل للمستر...', 'success');
-
-                window.open(whatsappAPI, '_blank');
+                    const whatsappAPI = `https://api.whatsapp.com/send?phone=${teacherWhatsAppNumber}&text=${encodeURIComponent(message)}`;
+                    showAlert('📱 تم التحقق من الكود بنجاح! جاري تحويلك للواتساب لإرسال رسالة التفعيل للمستر...', 'success');
+                    window.open(whatsappAPI, '_blank');
+                }
 
                 localStorage.setItem('isFirstVerified', 'true');
 
