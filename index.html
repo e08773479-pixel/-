@@ -23,7 +23,6 @@
             position: relative;
         }
 
-        /* خلفية فيزيائية جرافيكية خارقة ومتوهجة */
         .quantum-bg-grid {
             position: absolute;
             top: 0;
@@ -184,7 +183,6 @@
             box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
         }
 
-        /* صندوق رسائل الخطأ أو النجاح الاحترافي داخل الموقع */
         .alert-message-box {
             padding: 15px 20px;
             border-radius: 14px;
@@ -231,6 +229,38 @@
             transform: translateY(-5px);
             box-shadow: 0 25px 60px rgba(255, 204, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.6);
         }
+
+        /* تنسيق معاينة صورة المستخدم الشخصية */
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-custom-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: rgba(20, 10, 35, 0.9);
+            border: 2px dashed #00f2fe;
+            border-radius: 18px;
+            color: #00f2fe;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .file-custom-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -251,7 +281,7 @@
         </div>
 
         <div class="eng-title-elite">Eng. Mohamed Salah</div>
-        <p class="platform-desc">حيث تتلاقى دقة الفيزياء الكمية مع قوة الشرح المطلق للثانوية العامة - استعد للتوهج الكامل.</p>
+        <p id="platformDesc" class="platform-desc">حيث تتلاقى دقة الفيزياء الكمية مع قوة الشرح المطلق للثانوية العامة - استعد للتوهج الكامل.</p>
 
         <div class="success-matrix-bar">
             <span class="matrix-chip">🏆 صناعة الأوائل</span>
@@ -261,26 +291,10 @@
 
         <div id="formAlertBox" class="alert-message-box"></div>
 
-        <form id="studentRegistrationForm" onsubmit="validateAndRegister(event)">
-            <div class="input-group-quantum">
-                <label for="studentName">اسم الطالب الثلاثي:</label>
-                <input type="text" id="studentName" required placeholder="أدخل اسمك الكامل بوضوح للتفوق">
-            </div>
-
-            <div class="input-group-quantum">
-                <label for="studentPhone">رقم تليفون الطالب:</label>
-                <input type="tel" id="studentPhone" required placeholder="01xxxxxxxx0">
-            </div>
-
-            <div class="input-group-quantum">
-                <label for="parentPhone">رقم تليفون ولي الأمر (للمتابعة الدقيقة):</label>
-                <input type="tel" id="parentPhone" required placeholder="01xxxxxxxx0">
-            </div>
-
-            <div class="input-group-quantum">
-                <label for="platformCode">كود المنصة الخاص بك:</label>
-                <input type="text" id="platformCode" required placeholder="أدخل كود الاشتراك السري">
-            </div>
+        <form id="studentRegistrationForm" onsubmit="handlePlatformAuth(event)">
+            
+            <div id="dynamicFormFields">
+                </div>
 
             <button type="submit" class="submit-btn-quantum" id="actionBtn">دخول المنصة وبدء المحاضرة الكبرى</button>
         </form>
@@ -290,6 +304,7 @@
 
     <script>
         function sanitizeInput(input) {
+            if (!input) return '';
             const element = document.createElement('div');
             element.innerText = input;
             return element.innerHTML;
@@ -300,67 +315,199 @@
             alertBox.innerText = message;
             alertBox.className = `alert-message-box ${type}`;
             alertBox.style.display = 'block';
-            
-            // تمرير الشاشة بصرياً نحو التنبيه ليراه الطالب بوضوح
             alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function validateAndRegister(event) {
+        // دالة لتحويل الصور المرفوعة إلى نص (Base64) لتخزينها محلياً وبقائها ثابتة
+        function getBase64(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () { callback(reader.result); };
+            reader.onerror = function (error) { console.log('Error: ', error); };
+        }
+
+        // عند تحميل الصفحة، نحدد شكل الفورم المطلوب بناءً على حالة الطالب
+        window.onload = function() {
+            const isFirstVerified = localStorage.getItem('isFirstVerified') === 'true';
+            const isAccountCreated = localStorage.getItem('isAccountCreated') === 'true';
+            const fieldsContainer = document.getElementById('dynamicFormFields');
+            const descEl = document.getElementById('platformDesc');
+            const btnEl = document.getElementById('actionBtn');
+
+            if (!isFirstVerified) {
+                // الحالة الأولى: أول مرة خالص (بيانات التفعيل والواتساب)
+                descEl.innerText = "أدخل بياناتك الأساسية وكود المنصة لإرسالها وتفعيل حسابك عبر الواتساب للمستر لأول مرة فقط.";
+                btnEl.innerText = "تفعيل وإرسال للمستر عبر الواتساب 📱";
+                fieldsContainer.innerHTML = `
+                    <div class="input-group-quantum">
+                        <label for="studentName">اسم الطالب الثلاثي:</label>
+                        <input type="text" id="studentName" required placeholder="أدخل اسمك الكامل بوضوح">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="studentPhone">رقم تليفون الطالب:</label>
+                        <input type="tel" id="studentPhone" required placeholder="01xxxxxxxx0">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="parentPhone">رقم تليفون ولي الأمر:</label>
+                        <input type="tel" id="parentPhone" required placeholder="01xxxxxxxx0">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="platformCode">كود المنصة الخاص بك:</label>
+                        <input type="text" id="platformCode" required placeholder="أدخل كود الاشتراك السري">
+                    </div>
+                `;
+            } else if (!isAccountCreated) {
+                // الحالة الثانية: بعد إرسال الواتساب والرجوع (إنشاء الحساب الدائم وكلمة السر والصورة)
+                const tempName = JSON.parse(localStorage.getItem('activeStudentData') || '{}').name || '';
+                descEl.innerText = "تم استقبال تفعيلك بنجاح! الآن أنشئ حسابك الدائم (كلمة السر وصورتك الشخصية).";
+                btnEl.innerText = "إنشاء الحساب الدائم والدخول 🚀";
+                fieldsContainer.innerHTML = `
+                    <div class="input-group-quantum">
+                        <label for="savedUsername">اسم المستخدم (ثابت):</label>
+                        <input type="text" id="savedUsername" value="${tempName}" readonly style="background: rgba(10,5,18,0.5); color: #00f2fe; cursor: not-allowed;">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="newPassword">أنشئ كلمة السر:</label>
+                        <input type="password" id="newPassword" required placeholder="كلمة السر الخاصة بك لدخول لاحق">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="confirmPassword">تأكيد كلمة السر:</label>
+                        <input type="password" id="confirmPassword" required placeholder="أعد كتابة كلمة السر">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label>اختر صورتك الشخصية:</label>
+                        <div class="file-input-wrapper">
+                            <div class="file-custom-btn" id="fileLabelText">📷 اضغط لاختيار صورتك الشخصية</div>
+                            <input type="file" id="userImageFile" accept="image/*" onchange="updateFileName(this)">
+                        </div>
+                    </div>
+                `;
+            } else {
+                // الحالة الثالثة: الطالب مسجل ولديه حساب (يظهر اسم المستخدم الثابت ويُطلب منه كلمة السر فقط)
+                const savedData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+                descEl.innerText = "مرحباً بك مجدداً يا بطل. أدخل كلمة السر الخاصة بك للدخول للمنصة.";
+                btnEl.innerText = "تسجيل الدخول للمنصة ⚡";
+                fieldsContainer.innerHTML = `
+                    <div class="input-group-quantum">
+                        <label>اسم المستخدم:</label>
+                        <input type="text" value="${savedData.name || ''}" readonly style="background: rgba(10,5,18,0.5); color: #00f2fe; cursor: not-allowed;">
+                    </div>
+                    <div class="input-group-quantum">
+                        <label for="loginPassword">كلمة السر:</label>
+                        <input type="password" id="loginPassword" required placeholder="أدخل كلمة السر الخاصة بك">
+                    </div>
+                `;
+            }
+        };
+
+        function updateFileName(input) {
+            if (input.files && input.files[0]) {
+                document.getElementById('fileLabelText').innerText = "✅ تم اختيار الصورة: " + input.files[0].name;
+            }
+        }
+
+        // دالة التحكم المركزية في حالات التسجيل والدخول
+        function handlePlatformAuth(event) {
             event.preventDefault();
 
-            const rawName = document.getElementById('studentName').value;
-            const rawStudentPhone = document.getElementById('studentPhone').value;
-            const rawParentPhone = document.getElementById('parentPhone').value;
-            const rawCode = document.getElementById('platformCode').value.trim();
-
-            // 1. التحقق من وجود ملف الأكواد أو المصفوفة بشكل سليم
-            if (typeof validCodes === 'undefined') {
-                showAlert('⚠️ خطأ في نظام التحقق الداخلي للمنصة. يرجى مراجعة إدارة الدعم الفني.', 'error');
-                return;
-            }
-
-            // 2. فحص الكود المدخل إذا كان موجوداً في ملف الأكواد الخارجي
-            if (!validCodes.includes(rawCode)) {
-                showAlert('❌ عذراً يا بطل، الكود الذي أدخلته غير صحيح أو غير مفعل. يرجى التواصل مع الإدارة للحصول على الكود السري الخاص بك.', 'error');
-                return;
-            }
-
-            // 3. إذا كان الكود صحيحاً، يتم معالجة البيانات وتجهيزها
-            const studentInfo = {
-                name: sanitizeInput(rawName),
-                studentPhone: sanitizeInput(rawStudentPhone),
-                parentPhone: sanitizeInput(rawParentPhone),
-                code: sanitizeInput(rawCode),
-                timestamp: new Date().toLocaleString()
-            };
-
-            // حفظ بيانات الطالب محلياً
-            localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
-
-            // رقم الواتساب المخصص لاستقبال بيانات التسجيل الناجح
+            const isFirstVerified = localStorage.getItem('isFirstVerified') === 'true';
+            const isAccountCreated = localStorage.getItem('isAccountCreated') === 'true';
             const teacherWhatsAppNumber = "201102273068"; 
 
-            // صياغة رسالة الواتساب المتكاملة
-            const message = `✨ طالب جديد سجل بنجاح بكود معتمد:\n\n` +
-                            `👤 الاسم: ${studentInfo.name}\n` +
-                            `📱 هاتف الطالب: ${studentInfo.studentPhone}\n` +
-                            `📞 هاتف ولي الأمر: ${studentInfo.parentPhone}\n` +
-                            `🔑 كود المنصة المستخدم: ${studentInfo.code}\n` +
-                            `⏰ وقت التسجيل: ${studentInfo.timestamp}`;
+            if (!isFirstVerified) {
+                // خطوة 1: التحقق من الكود وإرسال الواتساب لأول مرة
+                const rawName = document.getElementById('studentName').value;
+                const rawStudentPhone = document.getElementById('studentPhone').value;
+                const rawParentPhone = document.getElementById('parentPhone').value;
+                const rawCode = document.getElementById('platformCode').value.trim();
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappAPI = `https://api.whatsapp.com/send?phone=${teacherWhatsAppNumber}&text=${encodedMessage}`;
+                if (typeof validCodes === 'undefined') {
+                    showAlert('⚠️ خطأ في ملف الأكواد الخارجي (codes.js). تأكد من وجوده.', 'error');
+                    return;
+                }
 
-            // إظهار رسالة نجاح فاخرة داخل الموقع
-            showAlert('🎉 تم التحقق من الكود بنجاح! جاري تفعيل حسابك ونقلك للمنصة...', 'success');
+                if (!validCodes.includes(rawCode)) {
+                    showAlert('❌ عذراً يا بطل، كود المنصة غير صحيح أو غير مفعل.', 'error');
+                    return;
+                }
 
-            // فتح الواتساب في نافذة خلفية لإشعار الإدارة بالتسجيل
-            window.open(whatsappAPI, '_blank');
+                const studentInfo = {
+                    name: sanitizeInput(rawName),
+                    studentPhone: sanitizeInput(rawStudentPhone),
+                    parentPhone: sanitizeInput(rawParentPhone),
+                    code: sanitizeInput(rawCode),
+                    timestamp: new Date().toLocaleString()
+                };
 
-            // تحويل الطالب إلى صفحة المنصة الداخلية بعد تأكيد التحقق بلحظات
-            setTimeout(() => {
-                window.location.href = 'platform.html';
-            }, 1800);
+                // حفظ مؤقت لحين إنشاء كلمة السر والصورة
+                localStorage.setItem('activeStudentData', JSON.stringify(studentInfo));
+
+                const message = `✨ طالب جديد يطلب التفعيل بكود معتمد:\n\n` +
+                                `👤 الاسم: ${studentInfo.name}\n` +
+                                `📱 هاتف الطالب: ${studentInfo.studentPhone}\n` +
+                                `📞 هاتف ولي الأمر: ${studentInfo.parentPhone}\n` +
+                                `🔑 الكود: ${studentInfo.code}`;
+
+                const whatsappAPI = `https://api.whatsapp.com/send?phone=${teacherWhatsAppNumber}&text=${encodeURIComponent(message)}`;
+
+                showAlert('📱 تم التحقق من الكود بنجاح! جاري تحويلك للواتساب لإرسال رسالة التفعيل للمستر...', 'success');
+
+                // فتح الواتساب
+                window.open(whatsappAPI, '_blank');
+
+                // تفعيل العلامة أن الطالب أرسل/فتح رابط الواتساب، وعند عودته ستتغير الصفحة لإنشاء الحساب
+                localStorage.setItem('isFirstVerified', 'true');
+
+                setTimeout(() => {
+                    location.reload(); // إعادة تحميل الصفحة لتظهر خطوة إنشاء الحساب الدائم
+                }, 2000);
+
+            } else if (!isAccountCreated) {
+                // خطوة 2: إنشاء الحساب الدائم (كلمة السر، تأكيدها، والصورة الشخصية)
+                const password = document.getElementById('newPassword').value;
+                const confirmPass = document.getElementById('confirmPassword').value;
+                const imageInput = document.getElementById('userImageFile');
+
+                if (password !== confirmPass) {
+                    showAlert('❌ كلمة السر غير متطابقة في الحقلين، تأكد منها.', 'error');
+                    return;
+                }
+
+                if (!imageInput.files || !imageInput.files[0]) {
+                    showAlert('❌ يجب اختيار وتحديد صورتك الشخصية للمنصة.', 'error');
+                    return;
+                }
+
+                // حفظ الصورة كـ Base64 لتبقى ثابتة دائماً في متصفح الطالب
+                getBase64(imageInput.files[0], function(base64Image) {
+                    let studentData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+                    studentData.password = password;
+                    studentData.userImage = base64Image;
+
+                    localStorage.setItem('activeStudentData', JSON.stringify(studentData));
+                    localStorage.setItem('isAccountCreated', 'true');
+
+                    showAlert('🎉 تم إنشاء حسابك الدائم بنجاح! جاري نقلك لملفات المنصة الداخلية...', 'success');
+
+                    setTimeout(() => {
+                        window.location.href = 'platform.html'; // الانتقال للملفات الداخلية
+                    }, 1500);
+                });
+
+            } else {
+                // خطوة 3: الدخول الدائم في المرات القادمة (الاسم ثابت ويُدخل كلمة السر فقط)
+                const enteredPassword = document.getElementById('loginPassword').value;
+                const savedData = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+
+                if (savedData.password && savedData.password === enteredPassword) {
+                    showAlert('🚀 تم التحقق من كلمة السر بنجاح! أهلاً بك في المنصة.', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'platform.html';
+                    }, 1000);
+                } else {
+                    showAlert('❌ كلمة السر غير صحيحة، حاول مرة أخرى.', 'error');
+                }
+            }
         }
     </script>
 
