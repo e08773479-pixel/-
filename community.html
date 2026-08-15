@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جروب الأوائل - Quantum Physics Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+    <title>جروب الأوائل - Quantum WhatsApp Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,326 +13,206 @@
             font-family: 'Cairo', sans-serif;
         }
         body {
-            background: #030005;
-            color: #fff;
+            background: #0b141a;
+            color: #e9edef;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
         }
 
-        .quantum-bg-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* حاوية الشات الرئيسية شبيهة بواتساب ويب */
+        .wa-chat-container {
             width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(255, 0, 119, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.1) 0%, transparent 50%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .elite-glow-badge {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, rgba(255, 0, 119, 0.2), rgba(0, 242, 254, 0.2), rgba(255, 204, 0, 0.2));
-            border: 2px solid rgba(0, 242, 254, 0.6);
-            border-radius: 40px;
-            padding: 8px 25px;
-            font-size: 14px;
-            font-weight: 900;
-            color: #00f2fe;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.4);
-            z-index: 20;
-            text-align: center;
-        }
-
-        .platform-quantum-card {
-            position: relative;
-            z-index: 10;
-            background: rgba(10, 5, 18, 0.95);
-            backdrop-filter: blur(40px);
-            border: 3px solid transparent;
-            background-image: linear-gradient(rgba(10, 5, 18, 0.97), rgba(10, 5, 18, 0.97)), 
-                              linear-gradient(135deg, #ff0077, #00f2fe, #ffcc00);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            border-radius: 35px;
-            box-shadow: 0 70px 140px rgba(0, 0, 0, 0.95);
-            width: 92%;
-            max-width: 780px;
-            height: 85vh;
+            max-width: 900px;
+            height: 95vh;
+            background: #111b21;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
-            margin-top: 40px;
+            overflow: hidden;
+            border: 1px solid #222d34;
         }
 
-        .chat-header {
-            padding: 18px 25px;
-            border-bottom: 2px solid rgba(59, 31, 78, 0.8);
+        /* هيدر الشات */
+        .wa-header {
+            background: #202c33;
+            padding: 12px 20px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            border-bottom: 1px solid #222d34;
         }
-        .chat-title-group {
+        .wa-profile {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
-        .chat-title-group h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ff0077, #ffcc00, #00f2fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .online-dot {
-            width: 12px;
-            height: 12px;
-            background: #00ff80;
+        .wa-avatar {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            box-shadow: 0 0 12px #00ff80;
-        }
-
-        .back-btn {
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-        }
-        .back-btn:hover { color: #00f2fe; }
-
-        /* لوحة تحكم طلبات المايك للأدمن */
-        .admin-mic-requests-bar {
-            background: rgba(255, 0, 119, 0.15);
-            border-bottom: 1px solid rgba(255, 0, 119, 0.3);
-            padding: 8px 20px;
-            display: none;
-            justify-content: space-between;
+            background: #00a884;
+            display: flex;
             align-items: center;
-            font-size: 13px;
-            color: #ffcc00;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
         }
-        .accept-mic-btn {
-            background: #00ff80;
-            color: #030005;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+        .wa-info h3 {
+            font-size: 16px;
+            color: #f1f1f1;
+            font-weight: 700;
         }
+        .wa-info span {
+            font-size: 12px;
+            color: #8696a0;
+        }
+        .wa-back {
+            color: #8696a0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 650;
+        }
+        .wa-back:hover { color: #00a884; }
 
-        .chat-messages-container {
+        /* منطقة الرسائل (خلفية واتساب الشهيرة) */
+        .wa-messages-area {
             flex: 1;
+            background-color: #0b141a;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 20px 20px;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .chat-message-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            max-width: 80%;
+        /* فقاعات الرسائل */
+        .wa-msg {
+            max-width: 65%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: relative;
+            font-size: 14.5px;
+            line-height: 1.4;
+            word-break: break-word;
+            box-shadow: 0 1px 0.5px rgba(0,0,0,0.3);
         }
-        .chat-message-card.my-message {
+        .wa-msg.incoming {
+            background: #202c33;
+            align-self: flex-start;
+            border-top-left-radius: 0;
+            color: #e9edef;
+        }
+        .wa-msg.outgoing {
+            background: #005c4b;
             align-self: flex-end;
-            flex-direction: row-reverse;
+            border-top-right-radius: 0;
+            color: #e9edef;
         }
 
-        .msg-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2px solid #00f2fe;
-            overflow: hidden;
-            background: #020617;
-            flex-shrink: 0;
+        .wa-sender {
+            font-size: 11px;
+            color: #00a884;
+            font-weight: bold;
+            margin-bottom: 3px;
         }
-        .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .outgoing .wa-sender { color: #53bdeb; }
 
-        .msg-content-wrapper {
-            background: rgba(20, 10, 35, 0.95);
-            border: 1px solid #3b1f4e;
-            padding: 12px 16px;
-            border-radius: 18px;
-        }
-        .my-message .msg-content-wrapper {
-            background: linear-gradient(135deg, rgba(255, 0, 119, 0.2), rgba(20, 10, 35, 0.95));
-            border-color: rgba(255, 0, 119, 0.5);
-        }
-
-        .msg-sender-name {
-            font-size: 12px;
-            color: #00f2fe;
-            font-weight: 800;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .my-message .msg-sender-name { color: #ffcc00; justify-content: flex-end; }
-
-        .admin-badge-tag {
-            background: linear-gradient(135deg, #ff0077, #ffcc00);
-            color: #030005;
+        .wa-time {
             font-size: 10px;
-            font-weight: 900;
-            padding: 2px 6px;
-            border-radius: 6px;
+            color: #8696a0;
+            float: left;
+            margin-top: 5px;
+            margin-right: 8px;
         }
 
-        .msg-text { font-size: 15px; color: #f1f5f9; word-break: break-word; }
-        .msg-time { font-size: 10px; color: #94a3b8; margin-top: 4px; }
-        .delete-msg-btn { background: none; border: none; color: #ff4d88; font-size: 13px; cursor: pointer; }
-
-        /* تذييل الإرسال والأداوت الاحترافية */
-        .chat-input-footer {
-            padding: 15px 20px;
-            background: rgba(8, 2, 15, 0.9);
-            border-top: 2px solid rgba(59, 31, 78, 0.8);
+        /* تذييل الإرسال (واتساب ستايل) */
+        .wa-footer {
+            background: #202c33;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
+            gap: 10px;
             position: relative;
         }
-
-        .chat-action-btn {
-            background: rgba(20, 10, 35, 0.9);
-            border: 2px solid #3b1f4e;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            color: #00f2fe;
-            transition: 0.3s;
-        }
-        .chat-action-btn:hover { border-color: #00f2fe; background: rgba(0, 242, 254, 0.15); }
-
-        .chat-text-input {
-            flex: 1;
-            padding: 12px 16px;
-            background: rgba(20, 10, 35, 0.9);
-            border: 2px solid #3b1f4e;
-            border-radius: 15px;
-            color: #fff;
-            font-size: 15px;
-        }
-        .chat-text-input:focus { border-color: #00f2fe; outline: none; }
-
-        .send-msg-btn {
-            background: linear-gradient(135deg, #ff0077, #ffcc00);
+        .wa-icon-btn {
+            background: none;
             border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            color: #030005;
-            box-shadow: 0 4px 15px rgba(255, 0, 119, 0.4);
-        }
-        .send-msg-btn:hover { transform: scale(1.05); }
-
-        /* نافذة اختيار الإيموجي السريعة */
-        .emoji-picker-popup {
-            position: absolute;
-            bottom: 75px;
-            left: 20px;
-            background: rgba(15, 8, 28, 0.95);
-            border: 2px solid #00f2fe;
-            border-radius: 15px;
-            padding: 10px;
-            display: none;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        .emoji-picker-popup span {
             font-size: 22px;
             cursor: pointer;
-            text-align: center;
+            color: #8696a0;
             transition: 0.2s;
         }
-        .emoji-picker-popup span:hover { transform: scale(1.3); }
+        .wa-icon-btn:hover { color: #e9edef; }
+
+        .wa-input {
+            flex: 1;
+            background: #2a3942;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #e9edef;
+            font-size: 14.5px;
+        }
+        .wa-input:focus { outline: none; }
+
+        /* حالة التسجيل الصوتي النشط */
+        .recording-status {
+            display: none;
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 13px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="elite-glow-badge">⚡ جروب الأوائل - محادثة تفاعلية سحابية متكاملة ⚡</div>
-    <div class="quantum-bg-grid"></div>
-
-    <div class="platform-quantum-card">
-        <div class="chat-header">
-            <div class="chat-title-group">
-                <div class="online-dot"></div>
-                <h2>Quantum Community Chat</h2>
+    <div class="wa-chat-container">
+        <!-- الهيدر -->
+        <div class="wa-header">
+            <div class="wa-profile">
+                <div class="wa-avatar">⚡</div>
+                <div class="wa-info">
+                    <h3>جروب الأوائل - Quantum Community</h3>
+                    <span id="onlineStatus">متصل الآن سحابياً</span>
+                </div>
             </div>
-            <a href="platform.html" class="back-btn">← العودة لوحة التحكم</a>
+            <a href="platform.html" class="wa-back">العودة للوحة التحكم ✕</a>
         </div>
 
-        <!-- شريط تنبيهات المايك الجماعي للأدمن -->
-        <div id="adminMicBar" class="admin-mic-requests-bar">
-            <span id="micRequestText">🎤 طلب كلام صوتي جديد من بطل بالمنصة</span>
-            <button class="accept-mic-btn" onclick="approveMicRequest()">الموافقة والتحدث</button>
-        </div>
+        <!-- صندوق الرسائل -->
+        <div id="waMessages" class="wa-messages-area"></div>
 
-        <div id="chatMessagesContainer" class="chat-messages-container"></div>
-
-        <!-- لوحة الإيموجي -->
-        <div id="emojiPopup" class="emoji-picker-popup">
-            <span onclick="addEmoji('🔥')">🔥</span>
-            <span onclick="addEmoji('⚡')">⚡</span>
-            <span onclick="addEmoji('👑')">👑</span>
-            <span onclick="addEmoji('🚀')">🚀</span>
-            <span onclick="addEmoji('😎')">😎</span>
-            <span onclick="addEmoji('💡')">💡</span>
-            <span onclick="addEmoji('⭐')">⭐</span>
-            <span onclick="addEmoji('🎯')">🎯</span>
-            <span onclick="addEmoji('👏')">👏</span>
-            <span onclick="addEmoji('💪')">💪</span>
-        </div>
-
-        <div class="chat-input-footer">
-            <!-- زر إرسال المستندات/الملفات -->
-            <label class="chat-action-btn" title="رفع مستند أو ملف">
+        <!-- تذييل الإرسال -->
+        <div class="wa-footer">
+            <button class="wa-icon-btn" onclick="toggleEmoji()" title="إيموجي">😀</button>
+            
+            <!-- زر رفع مستند -->
+            <label class="wa-icon-btn" title="إرفاق ملف/مستند">
                 📎
-                <input type="file" id="fileInput" style="display: none;" onchange="sendFileMessage(event)">
+                <input type="file" id="waFile" style="display:none;" onchange="sendDocument(event)">
             </label>
 
-            <!-- زر فتح لوحة الإيموجي -->
-            <button type="button" class="chat-action-btn" onclick="toggleEmojiPicker()" title="إيموجي">😀</button>
+            <span id="recStatus" class="recording-status">🔴 جاري تسجيل الصوت...</span>
 
-            <!-- زر طلب مايك جماعي -->
-            <button type="button" class="chat-action-btn" onclick="requestMicAccess()" title="طلب المايك الجماعي للتحدث">🎙️</button>
+            <input type="text" id="waInput" class="wa-input" placeholder="اكتب رسالة..." onkeypress="if(event.key==='Enter') sendText()">
 
-            <input type="text" id="chatTextInput" class="chat-text-input" placeholder="اكتب رسالتك أو أرسل مستنداً..." onkeypress="handleKeySend(event)">
+            <!-- زر المايك للتسجيل الصوتي الفعلي -->
+            <button id="micBtn" class="wa-icon-btn" onclick="toggleRecording()" title="تسجيل صوت">🎙️</button>
             
-            <button type="button" class="send-msg-btn" onclick="sendTextMessage()" title="إرسال">🚀</button>
+            <!-- زر الإرسال -->
+            <button class="wa-icon-btn" onclick="sendText()" style="color: #00a884;" title="إرسال">🚀</button>
         </div>
     </div>
 
-    <!-- جافاسكريبت السحابي المحدث -->
+    <!-- جافاسكريبت السحابي المحدث المتكامل -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -350,153 +230,126 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const messagesRef = ref(db, 'community_messages');
-        const micRequestsRef = ref(db, 'mic_requests');
+        const messagesRef = ref(db, 'whatsapp_style_messages');
 
-        let currentStudent = {};
-        
+        let studentData = {};
         window.addEventListener('DOMContentLoaded', () => {
-            const savedData = localStorage.getItem('activeStudentData');
-            if (savedData) {
-                currentStudent = JSON.parse(savedData);
-            } else {
-                currentStudent = { name: "يوسف (الأدمن)", userImage: "https://via.placeholder.com/150" };
-            }
-
-            // الاستماع لطلبات المايك لو المستخدم أدمن
-            if (checkIsAdmin()) {
-                onValue(micRequestsRef, (snapshot) => {
-                    const reqData = snapshot.val();
-                    const micBar = document.getElementById('adminMicBar');
-                    const reqText = document.getElementById('micRequestText');
-                    if (reqData && reqData.studentName) {
-                        reqText.innerText = `🎤 طلب كلام صوتي من البطل: ${reqData.studentName}`;
-                        micBar.style.display = 'flex';
-                    } else {
-                        micBar.style.display = 'none';
-                    }
-                });
-            }
+            const saved = localStorage.getItem('activeStudentData');
+            studentData = saved ? JSON.parse(saved) : { name: "يوسف (الأدمن)" };
         });
 
-        function checkIsAdmin() {
-            const name = (currentStudent.name || '').trim();
-            return name.includes('يوسف') || name.includes('Youssef');
+        function checkAdmin() {
+            return (studentData.name || '').includes('يوسف');
         }
 
-        // إرسال رسالة نصية
-        window.sendTextMessage = function() {
-            const inputField = document.getElementById('chatTextInput');
-            const text = inputField.value.trim();
-            if (!text) return;
+        window.sendText = function() {
+            const input = document.getElementById('waInput');
+            const text = input.value.trim();
+            if(!text) return;
 
-            const isAdmin = checkIsAdmin();
-            const newMessageRef = push(messagesRef);
-            set(newMessageRef, {
-                name: currentStudent.name || 'طالب متميز',
-                userImage: currentStudent.userImage || 'https://via.placeholder.com/150',
+            push(messagesRef, {
+                sender: studentData.name || 'طالب',
                 text: text,
-                type: 'text',
-                isAdmin: isAdmin,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                isAdmin: checkAdmin()
             });
-
-            inputField.value = '';
+            input.value = '';
         }
 
-        window.handleKeySend = function(event) {
-            if (event.key === 'Enter') sendTextMessage();
-        }
-
-        // إرسال مستند أو ملف
-        window.sendFileMessage = function(event) {
+        window.sendDocument = function(event) {
             const file = event.target.files[0];
-            if (!file) return;
-
+            if(!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                const fileDataUrl = e.target.result;
-                const isAdmin = checkIsAdmin();
-                const newMessageRef = push(messagesRef);
-                
-                set(newMessageRef, {
-                    name: currentStudent.name || 'طالب متميز',
-                    userImage: currentStudent.userImage || 'https://via.placeholder.com/150',
-                    text: `📎 مستند مرفق: <a href="${fileDataUrl}" download="${file.name}" style="color: #00f2fe; text-decoration: underline;">${file.name}</a>`,
-                    type: 'file',
-                    isAdmin: isAdmin,
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                push(messagesRef, {
+                    sender: studentData.name || 'طالب',
+                    text: `📁 ملف مرفق: <a href="${e.target.result}" download="${file.name}" style="color:#53bdeb; text-decoration:underline;">${file.name}</a>`,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    isAdmin: checkAdmin()
                 });
             };
             reader.readAsDataURL(file);
         }
 
-        // إيموجي
-        window.toggleEmojiPicker = function() {
-            const popup = document.getElementById('emojiPopup');
-            popup.style.display = popup.style.display === 'grid' ? 'none' : 'grid';
+        // تسجيل الصوت الحقيقي من المتصفح
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        window.toggleRecording = async function() {
+            const recStatus = document.getElementById('recStatus');
+            const micBtn = document.getElementById('micBtn');
+
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        
+                        push(messagesRef, {
+                            sender: studentData.name || 'طالب',
+                            text: `🎤 رسالة صوتية مسجلة:<br><audio controls src="${audioUrl}" style="width:200px; height:35px; margin-top:5px;"></audio>`,
+                            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                            isAdmin: checkAdmin()
+                        });
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recStatus.style.display = 'inline';
+                    micBtn.style.color = '#ef4444';
+                } catch (err) {
+                    alert('⚠️ عذراً، يرجى السماح للمتصفح بالوصول إلى المايكروفون.');
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                recStatus.style.display = 'none';
+                micBtn.style.color = '#8696a0';
+            }
         }
 
-        window.addEmoji = function(emoji) {
-            const inputField = document.getElementById('chatTextInput');
-            inputField.value += emoji;
-            document.getElementById('emojiPopup').style.display = 'none';
+        window.deleteMsg = function(key) {
+            remove(ref(db, 'whatsapp_style_messages/' + key));
         }
 
-        // نظام طلبات المايك الجماعي
-        window.requestMicAccess = function() {
-            set(micRequestsRef, {
-                studentName: currentStudent.name || 'طالب متميز',
-                timestamp: Date.now()
-            });
-            alert('🚀 تم إرسال طلب التحدث الصوتي إلى الأدمن بنجاح! انتظر الموافقة.');
-        }
-
-        window.approveMicRequest = function() {
-            alert('🎙️ تم الموافقة على المايك! يمكنك التحدث الآن لجميع الأبطال.');
-            remove(micRequestsRef);
-            document.getElementById('adminMicBar').style.display = 'none';
-        }
-
-        window.deleteCloudMessage = function(msgKey) {
-            remove(ref(db, 'community_messages/' + msgKey));
-        }
-
-        // عرض واستقبال الرسائل سحابياً
+        // استقبال الرسائل لحظياً
         onValue(messagesRef, (snapshot) => {
             const data = snapshot.val();
-            const container = document.getElementById('chatMessagesContainer');
-            const isAdminLoggedIn = checkIsAdmin();
+            const container = document.getElementById('waMessages');
+            const isAdmin = checkAdmin();
 
-            let htmlContent = '';
-            if (!data) {
-                container.innerHTML = `<div style="text-align: center; color: #94a3b8; margin: auto; font-weight: 700;">لا توجد رسائل بعد... ابدأ المحادثة وشارك الملفات والإيموجي يا بطل! ⚡</div>`;
+            if(!data) {
+                container.innerHTML = `<div style="text-align:center; color:#8696a0; margin:auto;">لا توجد رسائل بعد... ابدأ الدردشة الآن بتصميم واتساب الاحترافي! ⚡</div>`;
                 return;
             }
 
-            Object.keys(data).forEach((key) => {
+            let html = '';
+            Object.keys(data).forEach(key => {
                 const msg = data[key];
-                const isMine = msg.name === (currentStudent.name || '');
-                const avatarSrc = msg.userImage || 'https://via.placeholder.com/150';
-                const adminBadge = msg.isAdmin ? `<span class="admin-badge-tag">👑 الأدمن</span>` : '';
-                const deleteBtnHtml = isAdminLoggedIn ? `<button class="delete-msg-btn" onclick="deleteCloudMessage('${key}')">🗑️ حذف</button>` : '';
-                
-                htmlContent += `
-                    <div class="chat-message-card ${isMine ? 'my-message' : ''}">
-                        <div class="msg-avatar"><img src="${avatarSrc}" alt="${msg.name}"></div>
-                        <div class="msg-content-wrapper">
-                            <div class="msg-sender-name"><span>${msg.name}</span>${adminBadge}</div>
-                            <div class="msg-text">${msg.text}</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-                                <span class="msg-time">${msg.time}</span>
-                                ${deleteBtnHtml}
-                            </div>
+                const isMine = msg.sender === (studentData.name || '');
+                const deleteBtn = isAdmin ? `<button onclick="deleteMsg('${key}')" style="background:none; border:none; color:#ef4444; font-size:11px; cursor:pointer; float:left; margin-left:10px;">حذف</button>` : '';
+
+                html += `
+                    <div class="wa-msg ${isMine ? 'outgoing' : 'incoming'}">
+                        <div class="wa-sender">${msg.sender} ${msg.isAdmin ? '👑' : ''}</div>
+                        <div>${msg.text}</div>
+                        <div style="overflow:hidden;">
+                            <span class="wa-time">${msg.time}</span>
+                            ${deleteBtn}
                         </div>
                     </div>
                 `;
             });
-
-            container.innerHTML = htmlContent;
+            container.innerHTML = html;
             container.scrollTop = container.scrollHeight;
         });
     </script>
