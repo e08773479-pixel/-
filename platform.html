@@ -52,6 +52,88 @@
             100% { transform: translateY(-150px) translateX(-30px) rotate(360deg) scale(0.9); }
         }
 
+        /* زر القائمة (الثلاث شطات) في الزاوية */
+        .menu-toggle-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: rgba(20, 10, 35, 0.8);
+            border: 2px solid #00f2fe;
+            color: #00f2fe;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0,242,254,0.3);
+            transition: 0.3s;
+        }
+        .menu-toggle-btn:hover {
+            background: #00f2fe;
+            color: #030005;
+        }
+
+        /* القائمة الجانبية المنسدلة */
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            height: 100%;
+            background: #0d0614;
+            border-left: 2px solid #3b1f4e;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+            z-index: 200;
+            transition: 0.4s ease-in-out;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .side-drawer.open {
+            right: 0;
+        }
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #221235;
+            padding-bottom: 15px;
+        }
+        .drawer-header h3 { color: #00f2fe; font-size: 18px; }
+        .close-drawer { background: none; border: none; color: #ff0077; font-size: 22px; cursor: pointer; }
+
+        .drawer-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .drawer-group label { font-size: 13px; color: #94a3b8; font-weight: bold; }
+        .drawer-input {
+            background: #140a23;
+            border: 1px solid #3b1f4e;
+            border-radius: 8px;
+            padding: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+        .drawer-input:focus { outline: none; border-color: #00f2fe; }
+        .drawer-btn {
+            background: linear-gradient(135deg, #ff0077, #00f2fe);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .drawer-btn:hover { opacity: 0.9; }
+
         .elite-glow-badge {
             position: absolute;
             top: 25px;
@@ -92,7 +174,6 @@
             margin: 90px 20px 30px 20px;
         }
 
-        /* تنسيق بروفایل الطالب الجديد (الإطار والصورة والاسم) */
         .student-profile-container {
             display: flex;
             flex-direction: column;
@@ -163,29 +244,19 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .quantum-action-btn span.icon {
-            font-size: 32px;
-        }
+        .quantum-action-btn span.icon { font-size: 32px; }
 
         .quantum-action-btn.lectures {
             border-color: rgba(255, 0, 119, 0.6);
             background: linear-gradient(135deg, rgba(255, 0, 119, 0.15), rgba(20, 10, 35, 0.9));
         }
-        .quantum-action-btn.lectures:hover {
-            border-color: #ff0077;
-            box-shadow: 0 0 35px rgba(255, 0, 119, 0.6);
-            transform: translateY(-5px);
-        }
+        .quantum-action-btn.lectures:hover { border-color: #ff0077; box-shadow: 0 0 35px rgba(255, 0, 119, 0.6); transform: translateY(-5px); }
 
         .quantum-action-btn.exams {
             border-color: rgba(0, 242, 254, 0.6);
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(20, 10, 35, 0.9));
         }
-        .quantum-action-btn.exams:hover {
-            border-color: #00f2fe;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.6);
-            transform: translateY(-5px);
-        }
+        .quantum-action-btn.exams:hover { border-color: #00f2fe; box-shadow: 0 0 35px rgba(0, 242, 254, 0.6); transform: translateY(-5px); }
 
         .bottom-buttons-bar {
             display: grid;
@@ -197,21 +268,13 @@
             border-color: rgba(255, 204, 0, 0.6);
             background: linear-gradient(135deg, rgba(255, 204, 0, 0.15), rgba(20, 10, 35, 0.9));
         }
-        .quantum-action-btn.support:hover {
-            border-color: #ffcc00;
-            box-shadow: 0 0 35px rgba(255, 204, 0, 0.6);
-            transform: translateY(-5px);
-        }
+        .quantum-action-btn.support:hover { border-color: #ffcc00; box-shadow: 0 0 35px rgba(255, 204, 0, 0.6); transform: translateY(-5px); }
 
         .quantum-action-btn.community {
             border-color: rgba(138, 43, 226, 0.6);
             background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(20, 10, 35, 0.9));
         }
-        .quantum-action-btn.community:hover {
-            border-color: #8a2be2;
-            box-shadow: 0 0 35px rgba(138, 43, 226, 0.6);
-            transform: translateY(-5px);
-        }
+        .quantum-action-btn.community:hover { border-color: #8a2be2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6); transform: translateY(-5px); }
 
         .logout-link {
             display: inline-block;
@@ -222,18 +285,49 @@
             text-decoration: none;
             transition: color 0.3s;
         }
-        .logout-link:hover {
-            color: #ff0077;
-        }
+        .logout-link:hover { color: #ff0077; }
 
         @media(max-width: 600px) {
-            .dashboard-grid, .bottom-buttons-bar {
-                grid-template-columns: 1fr;
-            }
+            .dashboard-grid, .bottom-buttons-bar { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- زر الثلاث شطات -->
+    <div class="menu-toggle-btn" onclick="toggleDrawer()">☰</div>
+
+    <!-- القائمة الجانبية لتعديل الحساب -->
+    <div id="sideDrawer" class="side-drawer">
+        <div class="drawer-header">
+            <h3>⚙️ إعدادات الحساب الشخصي</h3>
+            <button class="close-drawer" onclick="toggleDrawer()">✕</button>
+        </div>
+
+        <div class="drawer-group">
+            <label>تعديل اسم المستخدم</label>
+            <input type="text" id="editNameInput" class="drawer-input" placeholder="اكتب الاسم الجديد...">
+            <button class="drawer-btn" onclick="updateName()">حفظ الاسم</button>
+        </div>
+
+        <div class="drawer-group">
+            <label>تغيير كلمة المرور الجديدة</label>
+            <input type="password" id="editPassInput" class="drawer-input" placeholder="كلمة المرور الجديدة...">
+            <button class="drawer-btn" onclick="updatePassword()">حفظ كلمة المرور</button>
+        </div>
+
+        <div class="drawer-group">
+            <label>تغيير صورة البروفايل</label>
+            <input type="file" id="editImageInput" class="drawer-input" accept="image/*" onchange="updateProfileImage(event)">
+        </div>
+
+        <!-- زر الأدمن الخاص بيوسف يظهر هنا حصرياً -->
+        <div id="adminPortalBtnContainer" style="display: none; margin-top: 10px;">
+            <a href="admin.html" style="background: linear-gradient(135deg, #00a884, #005c4b); color: #fff; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; display: block; text-align: center; box-shadow: 0 0 15px rgba(0,168,132,0.4);">
+                👑 لوحة تحكم الأدمن ومراقبة الأبطال
+            </a>
+        </div>
+    </div>
 
     <div class="elite-glow-badge">⚡ 👑 ⚡ أنت الآن في المكان الصح ⚡ 👑 ⚡</div>
 
@@ -246,7 +340,6 @@
 
     <div class="platform-quantum-card">
         
-        <!-- إطار وصورة الطالب واسمه في الأعلى -->
         <div class="student-profile-container">
             <div class="student-avatar-frame">
                 <img id="studentProfileImg" src="" alt="صورة الطالب الشخصية">
@@ -283,21 +376,76 @@
     </div>
 
     <script>
-        // قراءة بيانات الطالب والصورة من الـ LocalStorage وعرضها فوراً
+        function toggleDrawer() {
+            document.getElementById('sideDrawer').classList.toggle('open');
+        }
+
+        // قراءة بيانات الطالب وعرضها
         window.addEventListener('DOMContentLoaded', () => {
             const savedData = localStorage.getItem('activeStudentData');
             if (savedData) {
                 const student = JSON.parse(savedData);
                 document.getElementById('welcomeStudentDisplay').innerText = `أهلاً بك يا بطل: ${student.name} ⚡`;
+                document.getElementById('editNameInput').value = student.name || '';
                 
                 if (student.userImage) {
                     document.getElementById('studentProfileImg').src = student.userImage;
                 }
+
+                // إظهار زر الأدمن ليوسف فقط
+                if (student.name && student.name.includes('يوسف')) {
+                    document.getElementById('adminPortalBtnContainer').style.display = 'block';
+                }
             } else {
-                // إذا لم يتم تسجيل الدخول، يتم توجيهه مباشرة لصفحة التسجيل للأمان
                 window.location.href = 'index.html';
             }
         });
+
+        // تحديث الاسم
+        window.updateName = function() {
+            const newName = document.getElementById('editNameInput').value.trim();
+            if(!newName) return alert('أدخل الاسم الجديد بشكل صحيح');
+            
+            let student = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+            student.name = newName;
+            localStorage.setItem('activeStudentData', JSON.stringify(student));
+            
+            document.getElementById('welcomeStudentDisplay').innerText = `أهلاً بك يا بطل: ${student.name} ⚡`;
+            alert('✅ تم تغيير الاسم بنجاح!');
+            toggleDrawer();
+        }
+
+        // تحديث كلمة المرور
+        window.updatePassword = function() {
+            const newPass = document.getElementById('editPassInput').value.trim();
+            if(!newPass) return alert('أدخل كلمة المرور الجديدة');
+
+            let student = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+            student.password = newPass;
+            localStorage.setItem('activeStudentData', JSON.stringify(student));
+            
+            alert('✅ تم تحديث كلمة المرور بنجاح!');
+            document.getElementById('editPassInput').value = '';
+            toggleDrawer();
+        }
+
+        // تحديث صورة البروفايل
+        window.updateProfileImage = function(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Image = e.target.result;
+                let student = JSON.parse(localStorage.getItem('activeStudentData') || '{}');
+                student.userImage = base64Image;
+                localStorage.setItem('activeStudentData', JSON.stringify(student));
+
+                document.getElementById('studentProfileImg').src = base64Image;
+                alert('✅ تم تحديث صورة البروفايل بنجاح!');
+            };
+            reader.readAsDataURL(file);
+        }
     </script>
 
 </body>
