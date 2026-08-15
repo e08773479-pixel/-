@@ -37,21 +37,6 @@
             pointer-events: none;
         }
 
-        .physics-floating-formula {
-            position: absolute;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            opacity: 0.18;
-            animation: quantumFloat 20s infinite linear;
-            pointer-events: none;
-            z-index: 1;
-        }
-        @keyframes quantumFloat {
-            0% { transform: translateY(115vh) translateX(-50px) rotate(0deg) scale(0.9); }
-            50% { transform: translateY(50vh) translateX(50px) rotate(180deg) scale(1.1); }
-            100% { transform: translateY(-150px) translateX(-30px) rotate(360deg) scale(0.9); }
-        }
-
         .elite-glow-badge {
             position: absolute;
             top: 15px;
@@ -63,9 +48,8 @@
             padding: 8px 25px;
             font-size: 14px;
             font-weight: 900;
-            letter-spacing: 1px;
             color: #00f2fe;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.4), inset 0 0 15px rgba(255, 0, 119, 0.3);
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.4);
             z-index: 20;
             text-align: center;
         }
@@ -75,16 +59,13 @@
             z-index: 10;
             background: rgba(10, 5, 18, 0.95);
             backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
             border: 3px solid transparent;
             background-image: linear-gradient(rgba(10, 5, 18, 0.97), rgba(10, 5, 18, 0.97)), 
                               linear-gradient(135deg, #ff0077, #00f2fe, #ffcc00);
             background-origin: border-box;
             background-clip: padding-box, border-box;
             border-radius: 35px;
-            box-shadow: 0 70px 140px rgba(0, 0, 0, 0.95), 
-                        0 0 60px rgba(255, 0, 119, 0.3), 
-                        0 0 60px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 70px 140px rgba(0, 0, 0, 0.95);
             width: 92%;
             max-width: 750px;
             height: 82vh;
@@ -119,12 +100,6 @@
             background: #00ff80;
             border-radius: 50%;
             box-shadow: 0 0 12px #00ff80;
-            animation: pulseGlow 1.5s infinite;
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
         }
 
         .back-btn {
@@ -132,11 +107,8 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
-            transition: 0.3s;
         }
-        .back-btn:hover {
-            color: #00f2fe;
-        }
+        .back-btn:hover { color: #00f2fe; }
 
         .chat-messages-container {
             flex: 1;
@@ -145,7 +117,6 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            scroll-behavior: smooth;
         }
 
         .chat-message-card {
@@ -153,14 +124,7 @@
             align-items: flex-start;
             gap: 12px;
             max-width: 80%;
-            animation: fadeInMsg 0.3s ease;
-            position: relative;
         }
-        @keyframes fadeInMsg {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .chat-message-card.my-message {
             align-self: flex-end;
             flex-direction: row-reverse;
@@ -179,7 +143,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%;
         }
 
         .msg-content-wrapper {
@@ -187,7 +150,6 @@
             border: 1px solid #3b1f4e;
             padding: 12px 16px;
             border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
         .my-message .msg-content-wrapper {
             background: linear-gradient(135deg, rgba(255, 0, 119, 0.2), rgba(20, 10, 35, 0.95));
@@ -208,7 +170,6 @@
             justify-content: flex-end;
         }
 
-        /* شارة الأدمن المميزة لك يا بشمهندس يوسف */
         .admin-badge-tag {
             background: linear-gradient(135deg, #ff0077, #ffcc00);
             color: #030005;
@@ -216,36 +177,25 @@
             font-weight: 900;
             padding: 2px 6px;
             border-radius: 6px;
-            box-shadow: 0 0 10px rgba(255, 0, 119, 0.6);
         }
 
         .msg-text {
             font-size: 15px;
             color: #f1f5f9;
             word-break: break-word;
-            line-height: 1.5;
         }
         .msg-time {
             font-size: 10px;
             color: #94a3b8;
             margin-top: 4px;
-            text-align: left;
         }
 
-        /* زر حذف رسالة خاص بالصلاحيات (للأدمن) */
         .delete-msg-btn {
             background: none;
             border: none;
             color: #ff4d88;
             font-size: 13px;
             cursor: pointer;
-            padding: 2px 6px;
-            opacity: 0.7;
-            transition: 0.2s;
-        }
-        .delete-msg-btn:hover {
-            opacity: 1;
-            transform: scale(1.1);
         }
 
         .chat-input-footer {
@@ -267,38 +217,10 @@
             border-radius: 15px;
             color: #fff;
             font-size: 15px;
-            transition: 0.3s;
         }
         .chat-text-input:focus {
             border-color: #00f2fe;
             outline: none;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        }
-
-        .chat-action-icon-btn {
-            background: rgba(20, 10, 35, 0.9);
-            border: 2px solid #3b1f4e;
-            width: 48px;
-            height: 48px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            transition: 0.3s;
-            color: #00f2fe;
-        }
-        .chat-action-icon-btn:hover {
-            border-color: #00f2fe;
-            background: rgba(0, 242, 254, 0.15);
-            transform: scale(1.05);
-        }
-        .chat-action-icon-btn.mic-btn.recording {
-            border-color: #ff0055;
-            background: rgba(255, 0, 85, 0.3);
-            color: #ff4d88;
-            animation: pulseGlow 1s infinite;
         }
 
         .send-msg-btn {
@@ -313,28 +235,16 @@
             cursor: pointer;
             font-size: 20px;
             color: #030005;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(255, 0, 119, 0.4);
-        }
-        .send-msg-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.7);
         }
     </style>
 </head>
 <body>
 
-    <div class="elite-glow-badge">⚡ 👑 ⚡ جروب الأوائل - تفاعل حر 24 ساعة ⚡ 👑 ⚡</div>
+    <div class="elite-glow-badge">⚡ جروب الأوائل - متصل بالسيرفر السحابي ⚡</div>
 
-    <div class="quantum-bg-grid">
-        <div class="physics-floating-formula" style="left: 6%; font-size: 45px; color: #ff0077; animation-duration: 16s;">E = mc²</div>
-        <div class="physics-floating-formula" style="left: 25%; font-size: 50px; color: #ffcc00; animation-duration: 22s;">F = BIL sin($\theta$)</div>
-        <div class="physics-floating-formula" style="left: 50%; font-size: 44px; color: #00f2fe; animation-duration: 18s;">V = I × R</div>
-        <div class="physics-floating-formula" style="left: 75%; font-size: 48px; color: #ff0077; animation-duration: 24s;">$\oint B \cdot dl$</div>
-    </div>
+    <div class="quantum-bg-grid"></div>
 
     <div class="platform-quantum-card">
-        
         <div class="chat-header">
             <div class="chat-title-group">
                 <div class="online-dot"></div>
@@ -346,14 +256,31 @@
         <div id="chatMessagesContainer" class="chat-messages-container"></div>
 
         <div class="chat-input-footer">
-            <button type="button" id="micRecordBtn" class="chat-action-icon-btn mic-btn" title="تسجيل صوتي" onclick="toggleAudioRecording()">🎙️</button>
             <input type="text" id="chatTextInput" class="chat-text-input" placeholder="اكتب رسالتك لجميع الأبطال..." onkeypress="handleKeySend(event)">
-            <button type="button" class="send-msg-btn" onclick="sendTextMessage()" title="إرسال">🚀</button>
+            <button type="button" class="send-msg-btn" onclick="sendTextMessage()">🚀</button>
         </div>
-
     </div>
 
-    <script>
+    <!-- جافاسكريبت السحابي المحدث والمتوافق -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDPOmjs_GVMhx9qlEURlI90Gb1BDR9hiz8",
+          authDomain: "quantumchat-30a44.firebaseapp.com",
+          databaseURL: "https://quantumchat-30a44-default-rtdb.firebaseio.com",
+          projectId: "quantumchat-30a44",
+          storageBucket: "quantumchat-30a44.firebasestorage.app",
+          messagingSenderId: "898270556820",
+          appId: "1:898270556820:web:0dc8cbf8bd510daab37a81",
+          measurementId: "G-S8BF8Z6RT2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const messagesRef = ref(db, 'community_messages');
+
         let currentStudent = {};
         
         window.addEventListener('DOMContentLoaded', () => {
@@ -361,144 +288,79 @@
             if (savedData) {
                 currentStudent = JSON.parse(savedData);
             } else {
-                // إذا لم يتم تسجيل الدخول، يوجهه للرئيسية لأمان المنصة
-                window.location.href = 'index.html';
-                return;
+                currentStudent = { name: "يوسف (الأدمن)", userImage: "https://via.placeholder.com/150" };
             }
-            loadCommunityMessages();
-            // تحديث لحظي مستمر 24 ساعة لجميع المتصلين في نفس اللحظة
-            setInterval(loadCommunityMessages, 1000);
         });
 
-        // التحقق مما إذا كان المستخدم الحالي هو مهندس المنصة (الأدمن: يوسف اشرف)
         function checkIsAdmin() {
             const name = (currentStudent.name || '').trim();
             return name.includes('يوسف') || name.includes('Youssef');
         }
 
-        function sanitizeInput(input) {
-            if (!input) return '';
-            const element = document.createElement('div');
-            element.innerText = input;
-            return element.innerHTML;
-        }
-
-        function sendTextMessage() {
+        window.sendTextMessage = function() {
             const inputField = document.getElementById('chatTextInput');
             const text = inputField.value.trim();
             if (!text) return;
 
             const isAdmin = checkIsAdmin();
-            const newMessage = {
-                id: Date.now() + Math.random(),
+            const newMessageRef = push(messagesRef);
+            set(newMessageRef, {
                 name: currentStudent.name || 'طالب متميز',
-                userImage: currentStudent.userImage || '',
-                text: sanitizeInput(text),
-                type: 'text',
+                userImage: currentStudent.userImage || 'https://via.placeholder.com/150',
+                text: text,
                 isAdmin: isAdmin,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
+            });
 
-            saveAndBroadcastMessage(newMessage);
             inputField.value = '';
         }
 
-        function handleKeySend(event) {
+        window.handleKeySend = function(event) {
             if (event.key === 'Enter') {
                 sendTextMessage();
             }
         }
 
-        let isRecording = false;
-        function toggleAudioRecording() {
-            const micBtn = document.getElementById('micRecordBtn');
-            if (!isRecording) {
-                isRecording = true;
-                micBtn.classList.add('recording');
-                micBtn.title = "جاري التسجيل... اضغط للإيقاف والإرسال";
-            } else {
-                isRecording = false;
-                micBtn.classList.remove('recording');
-                micBtn.title = "تسجيل صوتي";
-                
-                const isAdmin = checkIsAdmin();
-                const audioMessage = {
-                    id: Date.now() + Math.random(),
-                    name: currentStudent.name || 'طالب متميز',
-                    userImage: currentStudent.userImage || '',
-                    text: '🎤 [رسالة صوتية مباشرة من البطل]',
-                    type: 'audio',
-                    isAdmin: isAdmin,
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                };
-                saveAndBroadcastMessage(audioMessage);
-            }
+        window.deleteCloudMessage = function(msgKey) {
+            remove(ref(db, 'community_messages/' + msgKey));
         }
 
-        function saveAndBroadcastMessage(msg) {
-            let messages = JSON.parse(localStorage.getItem('quantumCommunityMessages') || '[]');
-            messages.push(msg);
-            if (messages.length > 100) {
-                messages = messages.slice(messages.length - 100);
-            }
-            localStorage.setItem('quantumCommunityMessages', JSON.stringify(messages));
-            loadCommunityMessages();
-        }
-
-        // صلاحيات الأدمن: حذف أي رسالة مخالفة للتحكم الكامل
-        function deleteMessage(msgId) {
-            if (!checkIsAdmin()) return;
-            let messages = JSON.parse(localStorage.getItem('quantumCommunityMessages') || '[]');
-            messages = messages.filter(m => m.id !== msgId);
-            localStorage.setItem('quantumCommunityMessages', JSON.stringify(messages));
-            loadCommunityMessages();
-        }
-
-        function loadCommunityMessages() {
+        onValue(messagesRef, (snapshot) => {
+            const data = snapshot.val();
             const container = document.getElementById('chatMessagesContainer');
-            const messages = JSON.parse(localStorage.getItem('quantumCommunityMessages') || '[]');
             const isAdminLoggedIn = checkIsAdmin();
-            
-            const isScrolledToBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 50;
 
             let htmlContent = '';
-            if (messages.length === 0) {
-                htmlContent = `<div style="text-align: center; color: #94a3b8; margin-top: auto; margin-bottom: auto; font-weight: 700;">لا توجد رسائل بعد... كن أول من يبدأ المحادثة ونشر التفاعل يا بطل! ⚡</div>`;
-            } else {
-                messages.forEach(msg => {
-                    const isMine = msg.name === (currentStudent.name || '');
-                    const avatarSrc = msg.userImage || 'https://via.placeholder.com/150';
-                    const adminBadge = msg.isAdmin ? `<span class="admin-badge-tag">👑 الأدمن المبرمج</span>` : '';
-                    const deleteBtnHtml = isAdminLoggedIn ? `<button class="delete-msg-btn" onclick="deleteMessage(${msg.id})" title="حذف الرسالة (صلاحية أدمن)">🗑️ حذف</button>` : '';
-                    
-                    htmlContent += `
-                        <div class="chat-message-card ${isMine ? 'my-message' : ''}">
-                            <div class="msg-avatar">
-                                <img src="${avatarSrc}" alt="${msg.name}">
-                            </div>
-                            <div class="msg-content-wrapper">
-                                <div class="msg-sender-name">
-                                    <span>${msg.name}</span>
-                                    ${adminBadge}
-                                </div>
-                                <div class="msg-text">${msg.text}</div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-                                    <span class="msg-time">${msg.time}</span>
-                                    ${deleteBtnHtml}
-                                </div>
+            if (!data) {
+                container.innerHTML = `<div style="text-align: center; color: #94a3b8; margin: auto; font-weight: 700;">لا توجد رسائل سحابية بعد... ابدأ المحادثة الآن! ⚡</div>`;
+                return;
+            }
+
+            Object.keys(data).forEach((key) => {
+                const msg = data[key];
+                const isMine = msg.name === (currentStudent.name || '');
+                const avatarSrc = msg.userImage || 'https://via.placeholder.com/150';
+                const adminBadge = msg.isAdmin ? `<span class="admin-badge-tag">👑 الأدمن</span>` : '';
+                const deleteBtnHtml = isAdminLoggedIn ? `<button class="delete-msg-btn" onclick="deleteCloudMessage('${key}')">🗑️ حذف</button>` : '';
+                
+                htmlContent += `
+                    <div class="chat-message-card ${isMine ? 'my-message' : ''}">
+                        <div class="msg-avatar"><img src="${avatarSrc}" alt="${msg.name}"></div>
+                        <div class="msg-content-wrapper">
+                            <div class="msg-sender-name"><span>${msg.name}</span>${adminBadge}</div>
+                            <div class="msg-text">${msg.text}</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+                                <span class="msg-time">${msg.time}</span>
+                                ${deleteBtnHtml}
                             </div>
                         </div>
-                    `;
-                });
-            }
+                    </div>
+                `;
+            });
 
             container.innerHTML = htmlContent;
-
-            if (isScrolledToBottom || messages.length <= 5) {
-                container.scrollTop = container.scrollHeight;
-            }
-        }
+            container.scrollTop = container.scrollHeight;
+        });
     </script>
-
 </body>
 </html>
