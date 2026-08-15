@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الاحترافية - الأدمن يوسف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: #0b141a; color: #e9edef; padding: 20px; }
+        
+        .admin-container { max-width: 1000px; margin: 0 auto; background: #111b21; border-radius: 20px; padding: 30px; border: 1px solid #222d34; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        
+        /* بروفايل الأدمن الاحترافي */
+        .admin-profile-box { display: flex; align-items: center; gap: 20px; background: #202c33; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #00a884; }
+        .admin-avatar-img { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 3px solid #00ff80; box-shadow: 0 0 15px rgba(0,255,128,0.4); }
+        .admin-details h1 { font-size: 20px; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .admin-details p { font-size: 13px; color: #8696a0; }
+
+        /* إحصائيات سريعة */
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-box { background: #202c33; padding: 18px; border-radius: 12px; border-right: 4px solid #00a884; }
+        .stat-box h3 { font-size: 13px; color: #8696a0; }
+        .stat-box p { font-size: 26px; font-weight: 900; color: #fff; margin-top: 5px; }
+
+        /* جدول الأبطال والمتواجدين */
+        .table-title { font-size: 18px; color: #00a884; margin-bottom: 12px; font-weight: 700; }
+        .users-table { width: 100%; border-collapse: collapse; background: #111b21; border-radius: 10px; overflow: hidden; }
+        .users-table th, .users-table td { padding: 14px; text-align: right; border-bottom: 1px solid #222d34; font-size: 14px; }
+        .users-table th { background: #202c33; color: #00a884; }
+        
+        .badge-online { background: rgba(0,255,128,0.15); color: #00ff80; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 12px; }
+        .badge-offline { background: rgba(134,150,160,0.15); color: #8696a0; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+
+        .back-btn { display: inline-block; margin-top: 25px; color: #53bdeb; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .back-btn:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container" id="adminDashboard" style="display: none;">
+        <!-- كارت الأدمن الواضح -->
+        <div class="admin-profile-box">
+            <img id="adminAvatar" src="https://via.placeholder.com/150" alt="صورة الأدمن" class="admin-avatar-img">
+            <div class="admin-details">
+                <h1 id="adminName">مرحباً، يوسف (الأدمن) 👑</h1>
+                <p>أنت تملك السيطرة الكاملة على المنصة السحابية ومتابعة الطلاب لحظياً.</p>
+            </div>
+        </div>
+
+        <!-- الإحصائيات -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <h3>إجمالي الأبطال المسجلين</h3>
+                <p id="totalCount">0</p>
+            </div>
+            <div class="stat-box" style="border-right-color: #00ff80;">
+                <h3>الأبطال المتواجدين الآن</h3>
+                <p id="onlineCount">0</p>
+            </div>
+        </div>
+
+        <div class="table-title">👥 سجل الأبطال وحالتهم السحابية</div>
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>صورة / اسم البطل</th>
+                    <th>الحالة الحالية</th>
+                    <th>آخر نشاط</th>
+                </tr>
+            </thead>
+            <tbody id="liveUsersTable">
+                <!-- يتم التعبئة تلقائياً -->
+            </tbody>
+        </table>
+
+        <a href="platform.html" class="back-btn">← العودة للوحة التحكم الرئيسية</a>
+    </div>
+
+    <div id="accessDenied" style="text-align: center; margin-top: 100px; color: #ef4444; font-size: 20px; display: none;">
+        ⚠️ عذراً، هذه الصفحة مخصصة للأدمن (يوسف) فقط ولا يمكن لأحد غيره الدخول إليها.
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDPOmjs_GVMhx9qlEURlI90Gb1BDR9hiz8",
+          authDomain: "quantumchat-30a44.firebaseapp.com",
+          databaseURL: "https://quantumchat-30a44-default-rtdb.firebaseio.com",
+          projectId: "quantumchat-30a44",
+          storageBucket: "quantumchat-30a44.firebasestorage.app",
+          messagingSenderId: "898270556820",
+          appId: "1:898270556820:web:0dc8cbf8bd510daab37a81",
+          measurementId: "G-S8BF8Z6RT2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('activeStudentData');
+            const student = savedData ? JSON.parse(savedData) : { name: "يوسف (الأدمن)", userImage: "" };
+
+            // فحص هل المستخدم هو الأدمن يوسف؟
+            const isAdmin = (student.name || '').includes('يوسف');
+            if (!isAdmin) {
+                document.getElementById('accessDenied').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminName').innerHTML = `مرحباً، ${student.name} 👑`;
+            if (student.userImage) {
+                document.getElementById('adminAvatar').src = student.userImage;
+            }
+
+            // تفعيل نظام المتابعة الحية
+            const usersRef = ref(db, 'quantum_users');
+            onValue(usersRef, (snapshot) => {
+                const data = snapshot.val();
+                const tbody = document.getElementById('liveUsersTable');
+                let regCount = 0;
+                let onCount = 0;
+                let rowsHtml = '';
+
+                if (data) {
+                    const keys = Object.keys(data);
+                    regCount = keys.length;
+
+                    keys.forEach(k => {
+                        const u = data[k];
+                        if (u.isOnline) onCount++;
+
+                        rowsHtml += `
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="${u.userImage || 'https://via.placeholder.com/150'}" style="width:35px; height:35px; border-radius:50%; object-fit:cover;">
+                                    <b>${u.name}</b> ${u.name.includes('يوسف') ? '👑' : ''}
+                                </td>
+                                <td>${u.isOnline ? '<span class="badge-online">🟢 متصل الآن</span>' : '<span class="badge-offline">⚪ غير متصل</span>'}</td>
+                                <td>${u.lastActive || 'غير محدد'}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                document.getElementById('totalCount').innerText = regCount;
+                document.getElementById('onlineCount').innerText = onCount;
+                tbody.innerHTML = rowsHtml || `<tr><td colspan="3" style="text-align:center; color:#8696a0;">لا توجد بيانات مسجلة بعد</td></tr>`;
+            });
+
+            // تسجيل حضور الأدمن في النظام
+            const myKey = student.name.replace(/[.#$\/\[\]]/g, '_');
+            const myRef = ref(db, 'quantum_users/' + myKey);
+            set(myRef, {
+                name: student.name,
+                userImage: student.userImage || '',
+                isOnline: true,
+                lastActive: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+
+            onDisconnect(myRef).set({
+                name: student.name,
+                userImage: student.userImage || '',
+                isOnline: false,
+                lastActive: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+        });
+    </script>
+</body>
+</html>
