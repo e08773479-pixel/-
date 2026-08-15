@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Elite | Admin Control Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
@@ -24,7 +25,9 @@
         .input-area { display: flex; gap: 10px; padding-top: 20px; }
         
         input, textarea { width: 100%; padding: 15px; border-radius: 12px; background: #1a1025; border: 1px solid #444; color: #fff; font-size: 16px; }
-        button { padding: 15px 30px; background: linear-gradient(135deg, var(--primary), #00a884); border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; color: #030005; }
+        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px rgba(0,242,254,0.4); }
+        
+        button { padding: 15px 30px; background: linear-gradient(135deg, var(--primary), #00a884); border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; color: #030005; white-space: nowrap; }
         button:hover { filter: brightness(1.2); }
     </style>
 </head>
@@ -32,18 +35,22 @@
 
     <aside id="sidebar">
         <h2 style="color:var(--primary); margin-bottom: 20px;">🛡️ لوحة التحكم</h2>
-        <div id="users-list"></div>
+        <div id="users-list">
+            <p style="color:#888; text-align:center; padding:20px;">جاري تحميل الطلاب...</p>
+        </div>
     </aside>
 
     <main id="main-chat">
         <div class="chat-header">
             <h2 id="current-name">اختر طالباً للمحادثة</h2>
-            <button onclick="broadcastMsg()" style="background: var(--secondary); color:#fff;">📢 إرسال إشعار للكل</button>
+            <button onclick="window.broadcastMsg()" style="background: var(--secondary); color:#fff;">📢 إرسال إشعار للكل</button>
         </div>
-        <div id="chat-messages"></div>
+        <div id="chat-messages">
+            <p style="color:#666; text-align:center; margin:auto;">اختر طالباً من القائمة الجانبية لبدء المحادثة الفورية</p>
+        </div>
         <div class="input-area">
-            <input type="text" id="msg-input" placeholder="اكتب رسالتك الاحترافية...">
-            <button onclick="sendMsg()">إرسال ⚡</button>
+            <input type="text" id="msg-input" placeholder="اكتب رسالتك الاحترافية..." onkeypress="if(event.key === 'Enter') window.sendMsg()">
+            <button onclick="window.sendMsg()">إرسال ⚡</button>
         </div>
     </main>
 
@@ -67,16 +74,32 @@
 
         let activeUserId = null;
 
-        // جلب قائمة الطلاب المسجلين
+        // جلب قائمة الطلاب المسجلين وحالة الاتصال بدقة (متصل / مغلق)
         onValue(ref(db, 'quantum_users'), (snapshot) => {
             const list = document.getElementById('users-list');
             list.innerHTML = '';
+            
+            if (!snapshot.exists()) {
+                list.innerHTML = '<p style="color:#888; text-align:center; padding:20px;">لا يوجد طلاب مسجلين حتى الآن</p>';
+                return;
+            }
+
             snapshot.forEach(child => {
                 const user = child.val();
+                const userId = child.key;
+                
+                // تحديد حالة الاتصال
+                const isOnline = user.status === "online";
+                const statusColor = isOnline ? "#00ff80" : "#ff4d4d";
+                const statusText = isOnline ? "متصل الآن 🟢" : "مغلق 🔴";
+
                 list.innerHTML += `
-                    <div class="user-card" onclick="window.loadChat('${child.key}', '${user.name}')">
-                        <img src="${user.userImage}" style="width:45px; height:45px; border-radius:50%; border:2px solid var(--primary); object-fit: cover;">
-                        <div><b>${user.name}</b><br><small style="color:var(--primary)">متصل الآن</small></div>
+                    <div class="user-card" onclick="window.loadChat('${userId}', '${user.name}')">
+                        <img src="${user.userImage || '55.jpg'}" style="width:45px; height:45px; border-radius:50%; border:2px solid ${statusColor}; object-fit: cover;">
+                        <div style="flex:1; overflow:hidden;">
+                            <b style="color:#fff; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.name}</b>
+                            <small style="color:${statusColor}; font-weight:bold;">${statusText}</small>
+                        </div>
                     </div>`;
             });
         });
@@ -89,6 +112,10 @@
             const msgArea = document.getElementById('chat-messages');
             onValue(ref(db, `chats/${userId}`), (snapshot) => {
                 msgArea.innerHTML = '';
+                if (!snapshot.exists()) {
+                    msgArea.innerHTML = '<p style="color:#666; text-align:center; margin:auto;">لا توجد رسائل سابقة مع هذا الطالب</p>';
+                    return;
+                }
                 snapshot.forEach(child => {
                     const msg = child.val();
                     const bubbleClass = msg.sender === 'admin' ? 'msg-admin' : 'msg-student';
@@ -100,8 +127,12 @@
 
         // إرسال رسالة خاصة للطالب المحدد
         window.sendMsg = () => {
-            if (!activeUserId) return alert('الرجاء اختيار طالب أولاً من القائمة الجانبية!');
-            const text = document.getElementById('msg-input').value.trim();
+            if (!activeUserId) {
+                alert('الرجاء اختيار طالب أولاً من القائمة الجانبية!');
+                return;
+            }
+            const inputField = document.getElementById('msg-input');
+            const text = inputField.value.trim();
             if (!text) return;
 
             push(ref(db, `chats/${activeUserId}`), {
@@ -110,13 +141,13 @@
                 timestamp: Date.now()
             });
 
-            document.getElementById('msg-input').value = '';
+            inputField.value = '';
         };
 
         // إرسال إشعار عام للجميع
         window.broadcastMsg = () => {
-            const text = prompt('اكتب نص الإشعار العام الذي سيظهر لجميع الطلاب:');
-            if (!text) return;
+            const text = prompt('اكتب نص الإشعار العام الذي سيظهر لجميع الطلاب لحظياً:');
+            if (!text || text.trim() === "") return;
 
             push(ref(db, 'global_notifications'), {
                 message: text,
